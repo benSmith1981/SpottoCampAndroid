@@ -9,8 +9,15 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
@@ -23,6 +30,9 @@ public class ServiceHandler extends Application {
     private RequestQueue mRequestQueue;
 
     private static ServiceHandler mInstance;
+
+    // Progress dialog
+    private ProgressDialog pDialog;
 
     @Override
     public void onCreate() {
@@ -56,5 +66,60 @@ public class ServiceHandler extends Application {
         if (mRequestQueue != null) {
             mRequestQueue.cancelAll(tag);
         }
+    }
+
+    /**
+     * Method to make json object request where json response starts wtih {
+     * */
+    protected void makeJsonObjectRequest(String urlJsonObj) {
+
+//        showpDialog();
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                urlJsonObj, null, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, response.toString());
+
+                try {
+                    // Parsing json object response
+                    // response will be a json object
+
+                    JSONObject spots =  response.getJSONObject("spots");
+                    JSONArray data = spots.getJSONArray("data");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),
+                            "Error: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                }
+//                hidepDialog();
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+                // hide the progress dialog
+//                hidepDialog();
+            }
+        });
+
+        // Adding request to request queue
+        ServiceHandler.getInstance().addToRequestQueue(jsonObjReq);
+    }
+
+    private void showpDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hidepDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
     }
 }
