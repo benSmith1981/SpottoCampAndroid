@@ -14,10 +14,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
 
 
 /**
@@ -68,34 +74,36 @@ public class ServiceHandler extends Application {
         }
     }
 
+
+    public void getPersonList(Response.Listener<SpottoCampJSON> response,
+                              Response.ErrorListener errorListener){
+
+    }
+
     /**
      * Method to make json object request where json response starts wtih {
      * */
-    protected void makeJsonObjectRequest(String urlJsonObj) {
-
-//        showpDialog();
+    protected JsonObjectRequest makeJsonObjectRequest(String urlJsonObj) {
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 urlJsonObj, null, new Response.Listener<JSONObject>() {
-
+            protected SpottoCampJSON campsites;
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(TAG, response.toString());
-
                 try {
-                    // Parsing json object response
-                    // response will be a json object
-
-                    JSONObject spots =  response.getJSONObject("spots");
-                    JSONArray data = spots.getJSONArray("data");
-
-                } catch (JSONException e) {
+                    //create ObjectMapper instance
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    String responseJSONString = String.valueOf(response);
+                    campsites = objectMapper.readValue(responseJSONString,SpottoCampJSON.class);
+                } catch (IOException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(),
                             "Error: " + e.getMessage(),
                             Toast.LENGTH_LONG).show();
                 }
-//                hidepDialog();
+
+
             }
         }, new Response.ErrorListener() {
 
@@ -104,22 +112,13 @@ public class ServiceHandler extends Application {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_SHORT).show();
-                // hide the progress dialog
-//                hidepDialog();
+
             }
         });
 
         // Adding request to request queue
         ServiceHandler.getInstance().addToRequestQueue(jsonObjReq);
+        return jsonObjReq;
     }
 
-    private void showpDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
-
-    private void hidepDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
 }

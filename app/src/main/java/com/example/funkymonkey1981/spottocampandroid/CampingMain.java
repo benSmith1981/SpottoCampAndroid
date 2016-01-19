@@ -22,17 +22,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class CampingMain extends AppCompatActivity {
+
     ListView list;
+
     String[] titles = {
             "Camp","Lol"
     } ;
@@ -41,23 +46,14 @@ public class CampingMain extends AppCompatActivity {
             R.drawable.spottocamplogo
     };
 
+    SpottoCampJSON campsites;
+
     private String url = "http://spottodev.spottocamp.com/api/spots?lng=4.8833426&lat=52.389523&tents=1&nudists=1&distance=-1&page=2";
-
-    // json object response url
-    private String urlJsonObj = "http://api.androidhive.info/volley/person_object.json";
-
-    // json array response url
-    private String urlJsonArry = "http://api.androidhive.info/volley/person_array.json";
 
     private static String TAG = CampingMain.class.getSimpleName();
 
     // Progress dialog
     private ProgressDialog pDialog;
-
-    private TextView txtResponse;
-
-    // temporary string to show the parsed response
-    private String jsonResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +73,7 @@ public class CampingMain extends AppCompatActivity {
                 new GetCampsites().execute();
             }
         });        //Setup list view
-        CampingList adapter = new CampingList(CampingMain.this, titles, images);
-        list = (ListView)findViewById(R.id.list);
-        list.setAdapter(adapter);
+
     }
 
     @Override
@@ -123,8 +117,24 @@ public class CampingMain extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... arg0) {
             // Get singleton service handler class instance, get JSON objects
-            ServiceHandler.getInstance().makeJsonObjectRequest(url);
-            return null;
+            //ServiceHandler.getInstance().makeJsonObjectRequest(url);
+//            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+            SpottoCampJSONRequest<SpottoCampJSON> request = new SpottoCampJSONRequest.Builder<SpottoCampJSON>()
+                    .listener(new Response.Listener<SpottoCampJSON>() {
+                        @Override
+                        public void onResponse(SpottoCampJSON response) {
+                            listener.onComplete(response, null);
+                        }
+                    })
+                    .errorListener(new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            listener.onComplete(null, error);
+                        }
+                    })
+                    .url(url)
+                    .build();
+
         }
 
         @Override
@@ -143,6 +153,9 @@ public class CampingMain extends AppCompatActivity {
 //                    R.id.email, R.id.mobile });
 
 //            setListAdapter(adapter);
+            CampingList adapter = new CampingList(CampingMain.this, titles, images);
+            list = (ListView)findViewById(R.id.list);
+            list.setAdapter(adapter);
         }
 
     }

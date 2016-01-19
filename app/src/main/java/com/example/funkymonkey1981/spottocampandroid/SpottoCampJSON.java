@@ -10,7 +10,10 @@ public final class SpottoCampJSON {
     public final long currentDistance;
 
     @JsonCreator
-    public SpottoCampJSON(@JsonProperty("query") String query, @JsonProperty("resultsPerPage") long resultsPerPage, @JsonProperty("spots") Spots spots, @JsonProperty("currentDistance") long currentDistance){
+    public SpottoCampJSON(@JsonProperty("query") String query,
+                          @JsonProperty("resultsPerPage") long resultsPerPage,
+                          @JsonProperty("spots") Spots spots,
+                          @JsonProperty("currentDistance") long currentDistance){
         this.query = query;
         this.resultsPerPage = resultsPerPage;
         this.spots = spots;
@@ -47,7 +50,23 @@ public final class SpottoCampJSON {
             public final Ratings ratings;
 
             @JsonCreator
-            public Data(@JsonProperty("identifier") String identifier, @JsonProperty("name") String name, @JsonProperty("shortname") String shortname, @JsonProperty("thumbnail") String thumbnail, @JsonProperty("address") String address, @JsonProperty("zipcode") String zipcode, @JsonProperty("city") String city, @JsonProperty("country") String country, @JsonProperty("lng") String lng, @JsonProperty("lat") String lat, @JsonProperty("distance") double distance, @JsonProperty("prices") Prices prices, @JsonProperty("countryTranslated") String countryTranslated, @JsonProperty("hasThumbnail") boolean hasThumbnail, @JsonProperty("distanceKM") double distanceKM, @JsonProperty("distanceMiles") long distanceMiles, @JsonProperty("ratings") Ratings ratings){
+            public Data(@JsonProperty("identifier") String identifier,
+                        @JsonProperty("name") String name,
+                        @JsonProperty("shortname") String shortname,
+                        @JsonProperty("thumbnail") String thumbnail,
+                        @JsonProperty("address") String address,
+                        @JsonProperty("zipcode") String zipcode,
+                        @JsonProperty("city") String city,
+                        @JsonProperty("country") String country,
+                        @JsonProperty("lng") String lng,
+                        @JsonProperty("lat") String lat,
+                        @JsonProperty("distance") double distance,
+                        @JsonProperty("prices") Prices prices,
+                        @JsonProperty("countryTranslated") String countryTranslated,
+                        @JsonProperty("hasThumbnail") boolean hasThumbnail,
+                        @JsonProperty("distanceKM") double distanceKM,
+                        @JsonProperty("distanceMiles") long distanceMiles,
+                        @JsonProperty("ratings") Ratings ratings){
                 this.identifier = identifier;
                 this.name = name;
                 this.shortname = shortname;
