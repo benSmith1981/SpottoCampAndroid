@@ -2,6 +2,8 @@ package com.example.funkymonkey1981.spottocampandroid;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,9 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONObject;
 
@@ -26,13 +30,15 @@ import java.util.Arrays;
 
 public class CampingMain extends Activity {
 
-    ListView list;
-
-    SpottoCampJSON campsites;
-
+    private SpottoCampJSON campsites;
+    private ListView campingListView;
+    private CampingList campingListAdapter;
     private String url = "http://spottodev.spottocamp.com/api/spots?lng=4.8833426&lat=52.389523&tents=1&nudists=1&distance=-1&page=2";
 
     private static String TAG = CampingMain.class.getSimpleName();
+
+    private static CampingMain mInstance;
+    private static Context mAppContext;
 
     // Progress dialog
     private ProgressDialog pDialog;
@@ -47,22 +53,42 @@ public class CampingMain extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camping_list);
 
+        mInstance = this;
+        this.setAppContext(getApplicationContext());
+
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Please wait...");
         pDialog.setCancelable(false);
 
-        Button btnMakeArrayRequest = (Button) findViewById(R.id.btnArrayRequest);
-        btnMakeArrayRequest.setOnClickListener(new View.OnClickListener() {
+        campingListView = (ListView) findViewById(R.id.list);
 
+        campingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                getData();
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Intent detailView = new Intent(CampingMain.this, CampingDetail.class);
+                //How you send objects through?!
+                final SpottoCampJSON.Spots.Data data = campingListAdapter.getItem(position);
+                detailView.putExtra(Constants.detailExtraString,data.getName());
+                startActivity(detailView);
             }
-        });        //Setup list view
+        });
+
+        getData();
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    public static CampingMain getInstance(){
+        return mInstance;
+    }
+    public static Context getAppContext() {
+        return mAppContext;
+    }
+    public void setAppContext(Context mAppContext) {
+        this.mAppContext = mAppContext;
     }
 
     @Override
@@ -133,9 +159,10 @@ public class CampingMain extends Activity {
                     @Override
                     public void onSuccess(SpottoCampJSON campsites) {
                         if (campsites != null && campsites.spots != null && campsites.spots.getData() != null) {
-                            CampingList adapter = new CampingList(CampingMain.this, R.layout.content_camping_list, new ArrayList<SpottoCampJSON.Spots.Data>(campsites.spots.getData()));
-                            list = (ListView) findViewById(R.id.list);
-                            list.setAdapter(adapter);
+                            campingListAdapter = new CampingList(CampingMain.this,
+                                                                R.layout.content_camping_list,
+                                                                new ArrayList<SpottoCampJSON.Spots.Data>(campsites.spots.getData()));
+                            campingListView.setAdapter(campingListAdapter);
                         }
                         dismissDialog();
                     }

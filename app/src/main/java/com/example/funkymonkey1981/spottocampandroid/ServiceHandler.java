@@ -1,8 +1,10 @@
 package com.example.funkymonkey1981.spottocampandroid;
 import android.app.Application;
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.LruCache;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,6 +14,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fasterxml.jackson.core.JsonFactory;
@@ -29,16 +32,16 @@ import java.io.IOException;
 /**
  * Created by funkymonkey1981 on 18/01/16.
  */
-public class ServiceHandler extends Application {
+public class ServiceHandler extends Application{
 
     public static final String TAG = ServiceHandler.class.getSimpleName();
 
-    private RequestQueue mRequestQueue;
-
-    private static ServiceHandler mInstance;
-
     // Progress dialog
     private ProgressDialog pDialog;
+
+    private static ServiceHandler mInstance = null;
+    private RequestQueue mRequestQueue;
+    private ImageLoader mImageLoader;
 
     @Override
     public void onCreate() {
@@ -46,16 +49,21 @@ public class ServiceHandler extends Application {
         mInstance = this;
     }
 
-    public static synchronized ServiceHandler getInstance() {
+    public static ServiceHandler getInstance() {
         return mInstance;
     }
+
 
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         }
-
         return mRequestQueue;
+    }
+
+    public ImageLoader getImageLoader(){
+
+        return this.mImageLoader;
     }
 
     public <T> void addToRequestQueue(Request<T> req, String tag) {
@@ -90,7 +98,7 @@ public class ServiceHandler extends Application {
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),
+                    Toast.makeText(CampingMain.getAppContext(),
                             "Error: " + e.getMessage(),
                             Toast.LENGTH_LONG).show();
                 }
@@ -102,7 +110,7 @@ public class ServiceHandler extends Application {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
+                Toast.makeText(CampingMain.getAppContext(),
                         error.getMessage(), Toast.LENGTH_SHORT).show();
                 callback.onError(error);
 
