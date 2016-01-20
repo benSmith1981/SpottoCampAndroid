@@ -14,7 +14,7 @@ import org.w3c.dom.Text;
 /**
  * Created by funkymonkey1981 on 20/01/16.
  */
-public class CampingDetail extends Activity {
+public class SpottoCampDetail extends Activity {
 
 
     /**
@@ -50,7 +50,7 @@ public class CampingDetail extends Activity {
         client.connect();
         Action viewAction = Action.newAction(
                 Action.TYPE_VIEW, // TODO: choose an action type.
-                "CampingDetail Page", // TODO: Define a title for the content shown.
+                "SpottoCampDetail Page", // TODO: Define a title for the content shown.
                 // TODO: If you have web page content that matches this app activity's content,
                 // make sure this auto-generated web page URL is correct.
                 // Otherwise, set the URL to null.
@@ -69,7 +69,7 @@ public class CampingDetail extends Activity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         Action viewAction = Action.newAction(
                 Action.TYPE_VIEW, // TODO: choose an action type.
-                "CampingDetail Page", // TODO: Define a title for the content shown.
+                "SpottoCampDetail Page", // TODO: Define a title for the content shown.
                 // TODO: If you have web page content that matches this app activity's content,
                 // make sure this auto-generated web page URL is correct.
                 // Otherwise, set the URL to null.

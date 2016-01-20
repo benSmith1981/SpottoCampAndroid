@@ -5,39 +5,30 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import org.json.JSONObject;
 
 import com.android.volley.VolleyError;
-import com.example.funkymonkey1981.spottocampandroid.ServerCallBack;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class CampingMain extends Activity {
+public class SpottoCampMainScreen extends Activity {
 
     private SpottoCampJSON campsites;
     private ListView campingListView;
-    private CampingList campingListAdapter;
+    private SpottoCampListView campingListAdapter;
     private String url = "http://spottodev.spottocamp.com/api/spots?lng=4.8833426&lat=52.389523&tents=1&nudists=1&distance=-1&page=2";
 
-    private static String TAG = CampingMain.class.getSimpleName();
+    private static String TAG = SpottoCampMainScreen.class.getSimpleName();
 
-    private static CampingMain mInstance;
+    private static SpottoCampMainScreen mInstance;
     private static Context mAppContext;
 
     // Progress dialog
@@ -66,7 +57,7 @@ public class CampingMain extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                Intent detailView = new Intent(CampingMain.this, CampingDetail.class);
+                Intent detailView = new Intent(SpottoCampMainScreen.this, SpottoCampDetail.class);
                 //How you send objects through?!
                 final SpottoCampJSON.Spots.Data data = campingListAdapter.getItem(position);
                 detailView.putExtra(Constants.detailExtraString,data.getName());
@@ -81,7 +72,7 @@ public class CampingMain extends Activity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    public static CampingMain getInstance(){
+    public static SpottoCampMainScreen getInstance(){
         return mInstance;
     }
     public static Context getAppContext() {
@@ -122,7 +113,7 @@ public class CampingMain extends Activity {
         client.connect();
         Action viewAction = Action.newAction(
                 Action.TYPE_VIEW, // TODO: choose an action type.
-                "CampingMain Page", // TODO: Define a title for the content shown.
+                "SpottoCampMainScreen Page", // TODO: Define a title for the content shown.
                 // TODO: If you have web page content that matches this app activity's content,
                 // make sure this auto-generated web page URL is correct.
                 // Otherwise, set the URL to null.
@@ -141,7 +132,7 @@ public class CampingMain extends Activity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         Action viewAction = Action.newAction(
                 Action.TYPE_VIEW, // TODO: choose an action type.
-                "CampingMain Page", // TODO: Define a title for the content shown.
+                "SpottoCampMainScreen Page", // TODO: Define a title for the content shown.
                 // TODO: If you have web page content that matches this app activity's content,
                 // make sure this auto-generated web page URL is correct.
                 // Otherwise, set the URL to null.
@@ -155,11 +146,11 @@ public class CampingMain extends Activity {
 
     private void getData() {
         showDialog();
-        ServiceHandler.getInstance().getCampsiteList(url, new ServerCallBack() {
+        SpottoCampServiceHandler.getInstance().getCampsiteList(url, new ServerCallBack() {
                     @Override
                     public void onSuccess(SpottoCampJSON campsites) {
                         if (campsites != null && campsites.spots != null && campsites.spots.getData() != null) {
-                            campingListAdapter = new CampingList(CampingMain.this,
+                            campingListAdapter = new SpottoCampListView(SpottoCampMainScreen.this,
                                                                 R.layout.content_camping_list,
                                                                 new ArrayList<SpottoCampJSON.Spots.Data>(campsites.spots.getData()));
                             campingListView.setAdapter(campingListAdapter);
@@ -184,7 +175,7 @@ public class CampingMain extends Activity {
     }
 
     private void showDialog() {
-        pDialog = new ProgressDialog(CampingMain.this);
+        pDialog = new ProgressDialog(SpottoCampMainScreen.this);
         pDialog.setMessage("Please wait...");
         pDialog.setCancelable(false);
         pDialog.show();

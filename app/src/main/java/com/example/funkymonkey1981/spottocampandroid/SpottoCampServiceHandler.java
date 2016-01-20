@@ -1,12 +1,8 @@
 package com.example.funkymonkey1981.spottocampandroid;
 import android.app.Application;
 import android.app.ProgressDialog;
-import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.LruCache;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -17,13 +13,8 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -32,14 +23,14 @@ import java.io.IOException;
 /**
  * Created by funkymonkey1981 on 18/01/16.
  */
-public class ServiceHandler extends Application{
+public class SpottoCampServiceHandler extends Application{
 
-    public static final String TAG = ServiceHandler.class.getSimpleName();
+    public static final String TAG = SpottoCampServiceHandler.class.getSimpleName();
 
     // Progress dialog
     private ProgressDialog pDialog;
 
-    private static ServiceHandler mInstance = null;
+    private static SpottoCampServiceHandler mInstance = null;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
 
@@ -49,7 +40,7 @@ public class ServiceHandler extends Application{
         mInstance = this;
     }
 
-    public static ServiceHandler getInstance() {
+    public static SpottoCampServiceHandler getInstance() {
         return mInstance;
     }
 
@@ -98,7 +89,7 @@ public class ServiceHandler extends Application{
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(CampingMain.getAppContext(),
+                    Toast.makeText(SpottoCampMainScreen.getAppContext(),
                             "Error: " + e.getMessage(),
                             Toast.LENGTH_LONG).show();
                 }
@@ -110,7 +101,7 @@ public class ServiceHandler extends Application{
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(CampingMain.getAppContext(),
+                Toast.makeText(SpottoCampMainScreen.getAppContext(),
                         error.getMessage(), Toast.LENGTH_SHORT).show();
                 callback.onError(error);
 
@@ -118,7 +109,7 @@ public class ServiceHandler extends Application{
         });
 
         // Adding request to request queue
-        ServiceHandler.getInstance().addToRequestQueue(jsonObjReq);
+        SpottoCampServiceHandler.getInstance().addToRequestQueue(jsonObjReq);
     }
 
 }

@@ -1,37 +1,23 @@
 package com.example.funkymonkey1981.spottocampandroid;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
-import android.text.TextUtils;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-public class VolleySingleton {
-    private static VolleySingleton mInstance = null;
+public class SpottoCampImageLoader {
+    private static SpottoCampImageLoader mInstance = null;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
 
     // Progress dialog
     private ProgressDialog pDialog;
 
-    private VolleySingleton(){
-        mRequestQueue = Volley.newRequestQueue(CampingMain.getAppContext());
+    private SpottoCampImageLoader(){
+        mRequestQueue = Volley.newRequestQueue(SpottoCampMainScreen.getAppContext());
         mImageLoader = new ImageLoader(this.mRequestQueue, new ImageLoader.ImageCache() {
             private final LruCache<String, Bitmap> mCache = new LruCache<String, Bitmap>(10);
             public void putBitmap(String url, Bitmap bitmap) {
@@ -43,9 +29,9 @@ public class VolleySingleton {
         });
     }
 
-    public static VolleySingleton getInstance(){
+    public static SpottoCampImageLoader getInstance(){
         if(mInstance == null){
-            mInstance = new VolleySingleton();
+            mInstance = new SpottoCampImageLoader();
         }
         return mInstance;
     }

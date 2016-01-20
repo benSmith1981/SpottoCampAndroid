@@ -3,7 +3,7 @@
     package="com.example.funkymonkey1981.spottocampandroid">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:name=".ServiceHandler"
+        android:name=".SpottoCampServiceHandler"
         android:allowBackup="true"
         android:icon="@drawable/spottocamplogo"
         android:label="@string/app_name"
@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme"
         >
         <activity
-            android:name=".CampingMain"
+            android:name=".SpottoCampMainScreen"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CampingDetail"
+            android:name=".SpottoCampDetail"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             </activity>
