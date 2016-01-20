@@ -3,6 +3,10 @@ package com.example.funkymonkey1981.spottocampandroid;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public final class SpottoCampJSON {
     public final String query;
     public final long resultsPerPage;
@@ -22,32 +26,104 @@ public final class SpottoCampJSON {
 
     public static final class Spots {
         public final long totalRecords;
-        public final Data data[];
+        private final List<Data> data;
 
         @JsonCreator
-        public Spots(@JsonProperty("totalRecords") long totalRecords, @JsonProperty("data") Data[] data){
+        public Spots(@JsonProperty("totalRecords") long totalRecords, @JsonProperty("data") List<Data> data){
             this.totalRecords = totalRecords;
             this.data = data;
         }
 
+        public List<Data> getData() {
+            return data;
+        }
+
         public static final class Data {
-            public final String identifier;
-            public final String name;
-            public final String shortname;
-            public final String thumbnail;
-            public final String address;
-            public final String zipcode;
-            public final String city;
-            public final String country;
-            public final String lng;
-            public final String lat;
-            public final double distance;
-            public final Prices prices;
-            public final String countryTranslated;
-            public final boolean hasThumbnail;
-            public final double distanceKM;
-            public final long distanceMiles;
-            public final Ratings ratings;
+            public String getIdentifier() {
+                return identifier;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public String getShortname() {
+                return shortname;
+            }
+
+            public String getThumbnail() {
+                return thumbnail;
+            }
+
+            public String getAddress() {
+                return address;
+            }
+
+            public String getZipcode() {
+                return zipcode;
+            }
+
+            public String getCity() {
+                return city;
+            }
+
+            public String getCountry() {
+                return country;
+            }
+
+            public String getLng() {
+                return lng;
+            }
+
+            public String getLat() {
+                return lat;
+            }
+
+            public double getDistance() {
+                return distance;
+            }
+
+            public Prices getPrices() {
+                return prices;
+            }
+
+            public String getCountryTranslated() {
+                return countryTranslated;
+            }
+
+            public boolean isHasThumbnail() {
+                return hasThumbnail;
+            }
+
+            public double getDistanceKM() {
+                return distanceKM;
+            }
+
+            public long getDistanceMiles() {
+                return distanceMiles;
+            }
+
+            public Ratings getRatings() {
+                return ratings;
+            }
+
+            private final String identifier;
+            private final String name;
+            private final String shortname;
+            private final String thumbnail;
+            private final String address;
+            private final String zipcode;
+            private final String city;
+            private final String country;
+            private final String lng;
+            private final String lat;
+            private final double distance;
+            private final Prices prices;
+            private final String countryTranslated;
+            private final boolean hasThumbnail;
+            private final double distanceKM;
+            private final long distanceMiles;
+            private final Ratings ratings;
 
             @JsonCreator
             public Data(@JsonProperty("identifier") String identifier,

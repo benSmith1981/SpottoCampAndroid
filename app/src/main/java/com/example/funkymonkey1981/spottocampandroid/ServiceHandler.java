@@ -75,16 +75,7 @@ public class ServiceHandler extends Application {
     }
 
 
-    public void getPersonList(Response.Listener<SpottoCampJSON> response,
-                              Response.ErrorListener errorListener){
-
-    }
-
-    /**
-     * Method to make json object request where json response starts wtih {
-     * */
-    protected JsonObjectRequest makeJsonObjectRequest(String urlJsonObj) {
-
+    public void getCampsiteList(String urlJsonObj, final ServerCallBack callback){
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 urlJsonObj, null, new Response.Listener<JSONObject>() {
             protected SpottoCampJSON campsites;
@@ -95,7 +86,8 @@ public class ServiceHandler extends Application {
                     //create ObjectMapper instance
                     ObjectMapper objectMapper = new ObjectMapper();
                     String responseJSONString = String.valueOf(response);
-                    campsites = objectMapper.readValue(responseJSONString,SpottoCampJSON.class);
+                    callback.onSuccess(objectMapper.readValue(responseJSONString,SpottoCampJSON.class)); // call call back function here
+
                 } catch (IOException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(),
@@ -112,13 +104,13 @@ public class ServiceHandler extends Application {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_SHORT).show();
+                callback.onError(error);
 
             }
         });
 
         // Adding request to request queue
         ServiceHandler.getInstance().addToRequestQueue(jsonObjReq);
-        return jsonObjReq;
     }
 
 }

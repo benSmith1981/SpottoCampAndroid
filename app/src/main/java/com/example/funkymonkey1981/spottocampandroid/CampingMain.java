@@ -1,50 +1,32 @@
 package com.example.funkymonkey1981.spottocampandroid;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CampingMain extends AppCompatActivity {
+import com.android.volley.VolleyError;
+import com.example.funkymonkey1981.spottocampandroid.ServerCallBack;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class CampingMain extends Activity {
 
     ListView list;
-
-    String[] titles = {
-            "Camp","Lol"
-    } ;
-    Integer[] images = {
-            R.drawable.spottocamplogo,
-            R.drawable.spottocamplogo
-    };
 
     SpottoCampJSON campsites;
 
@@ -54,6 +36,11 @@ public class CampingMain extends AppCompatActivity {
 
     // Progress dialog
     private ProgressDialog pDialog;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +56,13 @@ public class CampingMain extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // making json array request
-                new GetCampsites().execute();
+                getData();
             }
         });        //Setup list view
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -98,65 +87,79 @@ public class CampingMain extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Async task class to get json by making HTTP call
-     * */
-    private class GetCampsites extends AsyncTask<Void, Void, Void> {
+    @Override
+    public void onStart() {
+        super.onStart();
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // Showing progress dialog
-            pDialog = new ProgressDialog(CampingMain.this);
-            pDialog.setMessage("Please wait...");
-            pDialog.setCancelable(false);
-            pDialog.show();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "CampingMain Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.example.funkymonkey1981.spottocampandroid/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
 
-        }
+    @Override
+    public void onStop() {
+        super.onStop();
 
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            // Get singleton service handler class instance, get JSON objects
-            //ServiceHandler.getInstance().makeJsonObjectRequest(url);
-//            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-            SpottoCampJSONRequest<SpottoCampJSON> request = new SpottoCampJSONRequest.Builder<SpottoCampJSON>()
-                    .listener(new Response.Listener<SpottoCampJSON>() {
-                        @Override
-                        public void onResponse(SpottoCampJSON response) {
-                            listener.onComplete(response, null);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "CampingMain Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.example.funkymonkey1981.spottocampandroid/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
+
+    private void getData() {
+        showDialog();
+        ServiceHandler.getInstance().getCampsiteList(url, new ServerCallBack() {
+                    @Override
+                    public void onSuccess(SpottoCampJSON campsites) {
+                        if (campsites != null && campsites.spots != null && campsites.spots.getData() != null) {
+                            CampingList adapter = new CampingList(CampingMain.this, R.layout.content_camping_list, new ArrayList<SpottoCampJSON.Spots.Data>(campsites.spots.getData()));
+                            list = (ListView) findViewById(R.id.list);
+                            list.setAdapter(adapter);
                         }
-                    })
-                    .errorListener(new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            listener.onComplete(null, error);
-                        }
-                    })
-                    .url(url)
-                    .build();
+                        dismissDialog();
+                    }
 
+                    @Override
+                    public void onError(VolleyError error) {
+                        dismissDialog();
+                    }
+
+                }
+        );
+
+    }
+
+    private void dismissDialog() {
+        if (pDialog != null && pDialog.isShowing()) {
+            pDialog.dismiss();
         }
+    }
 
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            // Dismiss the progress dialog
-            if (pDialog.isShowing())
-                pDialog.dismiss();
-            /**
-             * Updating parsed JSON data into ListView
-             * */
-//            ListAdapter adapter = new SimpleAdapter(
-//                    CampingMain.this, contactList,
-//                    R.layout.list_item, new String[] { TAG_NAME, TAG_EMAIL,
-//                    TAG_PHONE_MOBILE }, new int[] { R.id.name,
-//                    R.id.email, R.id.mobile });
-
-//            setListAdapter(adapter);
-            CampingList adapter = new CampingList(CampingMain.this, titles, images);
-            list = (ListView)findViewById(R.id.list);
-            list.setAdapter(adapter);
-        }
-
+    private void showDialog() {
+        pDialog = new ProgressDialog(CampingMain.this);
+        pDialog.setMessage("Please wait...");
+        pDialog.setCancelable(false);
+        pDialog.show();
     }
 }
