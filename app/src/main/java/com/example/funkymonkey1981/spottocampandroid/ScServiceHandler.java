@@ -23,14 +23,14 @@ import java.io.IOException;
 /**
  * Created by funkymonkey1981 on 18/01/16.
  */
-public class SpottoCampServiceHandler extends Application{
+public class ScServiceHandler extends Application{
 
-    public static final String TAG = SpottoCampServiceHandler.class.getSimpleName();
+    public static final String TAG = ScServiceHandler.class.getSimpleName();
 
     // Progress dialog
     private ProgressDialog pDialog;
 
-    private static SpottoCampServiceHandler mInstance = null;
+    private static ScServiceHandler mInstance = null;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
 
@@ -40,7 +40,7 @@ public class SpottoCampServiceHandler extends Application{
         mInstance = this;
     }
 
-    public static SpottoCampServiceHandler getInstance() {
+    public static ScServiceHandler getInstance() {
         return mInstance;
     }
 
@@ -74,10 +74,10 @@ public class SpottoCampServiceHandler extends Application{
     }
 
 
-    public void getCampsiteList(String urlJsonObj, final ServerCallBack callback){
+    public void getCampsiteList(String urlJsonObj, final SCServerCallBack callback){
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 urlJsonObj, null, new Response.Listener<JSONObject>() {
-            protected SpottoCampJSON campsites;
+            protected SCJSON campsites;
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(TAG, response.toString());
@@ -85,11 +85,11 @@ public class SpottoCampServiceHandler extends Application{
                     //create ObjectMapper instance
                     ObjectMapper objectMapper = new ObjectMapper();
                     String responseJSONString = String.valueOf(response);
-                    callback.onSuccess(objectMapper.readValue(responseJSONString,SpottoCampJSON.class)); // call call back function here
+                    callback.onSuccess(objectMapper.readValue(responseJSONString,SCJSON.class)); // call call back function here
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(SpottoCampMainScreen.getAppContext(),
+                    Toast.makeText(SCMainActivity.getAppContext(),
                             "Error: " + e.getMessage(),
                             Toast.LENGTH_LONG).show();
                 }
@@ -101,7 +101,7 @@ public class SpottoCampServiceHandler extends Application{
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(SpottoCampMainScreen.getAppContext(),
+                Toast.makeText(SCMainActivity.getAppContext(),
                         error.getMessage(), Toast.LENGTH_SHORT).show();
                 callback.onError(error);
 
@@ -109,7 +109,7 @@ public class SpottoCampServiceHandler extends Application{
         });
 
         // Adding request to request queue
-        SpottoCampServiceHandler.getInstance().addToRequestQueue(jsonObjReq);
+        ScServiceHandler.getInstance().addToRequestQueue(jsonObjReq);
     }
 
 }

@@ -8,16 +8,16 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
-public class SpottoCampImageLoader {
-    private static SpottoCampImageLoader mInstance = null;
+public class SCImageLoader {
+    private static SCImageLoader mInstance = null;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
 
     // Progress dialog
     private ProgressDialog pDialog;
 
-    private SpottoCampImageLoader(){
-        mRequestQueue = Volley.newRequestQueue(SpottoCampMainScreen.getAppContext());
+    private SCImageLoader(){
+        mRequestQueue = Volley.newRequestQueue(SCMainActivity.getAppContext());
         mImageLoader = new ImageLoader(this.mRequestQueue, new ImageLoader.ImageCache() {
             private final LruCache<String, Bitmap> mCache = new LruCache<String, Bitmap>(10);
             public void putBitmap(String url, Bitmap bitmap) {
@@ -29,9 +29,9 @@ public class SpottoCampImageLoader {
         });
     }
 
-    public static SpottoCampImageLoader getInstance(){
+    public static SCImageLoader getInstance(){
         if(mInstance == null){
-            mInstance = new SpottoCampImageLoader();
+            mInstance = new SCImageLoader();
         }
         return mInstance;
     }

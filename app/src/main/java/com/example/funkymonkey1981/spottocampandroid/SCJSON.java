@@ -7,17 +7,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class SpottoCampJSON {
+public final class SCJSON {
     public final String query;
     public final long resultsPerPage;
     public final Spots spots;
     public final long currentDistance;
 
     @JsonCreator
-    public SpottoCampJSON(@JsonProperty("query") String query,
-                          @JsonProperty("resultsPerPage") long resultsPerPage,
-                          @JsonProperty("spots") Spots spots,
-                          @JsonProperty("currentDistance") long currentDistance){
+    public SCJSON(@JsonProperty("query") String query,
+                  @JsonProperty("resultsPerPage") long resultsPerPage,
+                  @JsonProperty("spots") Spots spots,
+                  @JsonProperty("currentDistance") long currentDistance){
         this.query = query;
         this.resultsPerPage = resultsPerPage;
         this.spots = spots;

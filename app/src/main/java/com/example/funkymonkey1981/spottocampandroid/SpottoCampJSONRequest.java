@@ -3,27 +3,10 @@ package com.example.funkymonkey1981.spottocampandroid;
 import android.app.ProgressDialog;
 import android.text.TextUtils;
 
-import com.android.volley.Cache;
 import com.android.volley.NetworkResponse;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.toolbox.HttpHeaderParser;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -34,7 +17,7 @@ public class SpottoCampJSONRequest<T> extends Request<T> {
     private RequestQueue mRequestQueue;
     protected final Response.Listener<T> listener;
     private static SpottoCampJSONRequest mInstance;
-    protected SpottoCampJSON campsites;
+    protected SCJSON campsites;
     // Progress dialog
     private ProgressDialog pDialog;
     protected String url;

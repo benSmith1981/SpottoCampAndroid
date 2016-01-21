@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.ArrayList;
 
@@ -17,13 +16,15 @@ import java.util.ArrayList;
  * Created by funkymonkey1981 on 18/01/16.
  */
 
-public class SpottoCampListView extends ArrayAdapter<SpottoCampJSON.Spots.Data> {
+public class SCListView extends ArrayAdapter<SCJSON.Spots.Data> {
 
     private LayoutInflater inflater;
+    private ImageLoader mImageLoader;
 
-    public SpottoCampListView(Context context, @LayoutRes int layoutId, ArrayList<SpottoCampJSON.Spots.Data> campsites) {
+    public SCListView(Context context, @LayoutRes int layoutId, ArrayList<SCJSON.Spots.Data> campsites) {
         super(context, layoutId, campsites);
         inflater = LayoutInflater.from(context);
+        mImageLoader = com.example.funkymonkey1981.spottocampandroid.SCImageLoader.getInstance().getImageLoader();
 
     }
 
@@ -35,19 +36,25 @@ public class SpottoCampListView extends ArrayAdapter<SpottoCampJSON.Spots.Data> 
         } else {
             rowView = view;
         }
-        final SpottoCampJSON.Spots.Data data = getItem(position);
+        final SCJSON.Spots.Data data = getItem(position);
         TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
         txtTitle.setText(data.getName());
 
         // Get the ImageLoader through your singleton class.
-        ImageLoader mImageLoader = SpottoCampImageLoader.getInstance().getImageLoader();
-        NetworkImageView nv = (NetworkImageView)  rowView.findViewById(R.id.img);
-        nv.setDefaultImageResId(R.drawable.spottocamplogo); // image for loading...
-        // Set the URL of the image that should be loaded into this view, and
-        // specify the ImageLoader that will be used to make the request.
-        nv.setImageUrl(data.getThumbnail(), mImageLoader);
+//        ImageLoader mImageLoader = SCImageLoader.getInstance().getImageLoader();
+//        NetworkImageView nv = (NetworkImageView)  rowView.findViewById(R.id.img);
+//        nv.setDefaultImageResId(R.drawable.spottocamplogo); // image for loading...
+//        // Set the URL of the image that should be loaded into this view, and
+//        // specify the ImageLoader that will be used to make the request.
+//        nv.setImageUrl(data.getThumbnail(), mImageLoader);
+
+
+//        ImageView imageView = (ImageView)  rowView.findViewById(R.id.img);
+//        Picasso.with(view.getContext()).load(data.getThumbnail()).into(imageView);
 
         return rowView;
     }
+
+
 
 }

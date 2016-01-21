@@ -6,9 +6,9 @@ import com.android.volley.VolleyError;
  * Created by funkymonkey1981 on 20/01/16.
  */
 
-public interface ServerCallBack {
+public interface SCServerCallBack {
 
-    void onSuccess(SpottoCampJSON campsites);
+    void onSuccess(SCJSON campsites);
 
     void onError(VolleyError error);
 }
