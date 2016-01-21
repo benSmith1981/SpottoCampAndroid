@@ -3,7 +3,7 @@
 android:layout_width="match_parent"
 android:layout_height="match_parent" >
     <TableRow>
-        <com.android.volley.toolbox.NetworkImageView
+        <ImageView
             android:id="@+id/img"
             android:src="@drawable/spottocamplogo"
             android:layout_width="50dp"
