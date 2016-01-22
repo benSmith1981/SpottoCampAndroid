@@ -5,5 +5,6 @@ package com.example.funkymonkey1981.spottocampandroid;
  */
 public class Constants {
 
-    public static final String detailExtraString = "CampSites";
+    public static final String DETAIL_EXTRA_STRING = "CampSites";
+    public static final String SER_KEY = "campsitesSerialKey";
 }

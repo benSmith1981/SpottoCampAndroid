@@ -2,8 +2,8 @@ package com.example.funkymonkey1981.spottocampandroid;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.app.Fragment;
+//import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,18 +22,11 @@ public class SCCampingListFragment extends Fragment {
     private SCJSON campsites;
     private ListView campingListView;
     private SCListView campingListAdapter;
-    private String url = "http://spottodev.spottocamp.com/api/spots?lng=4.8833426&lat=52.389523&tents=1&nudists=1&distance=-1&page=2";
-    // Progress dialog
-    private ProgressDialog pDialog;
     private static String TAG = SCMainActivity.class.getSimpleName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.camping_list_fragment, container, false);
-
-//        pDialog = new ProgressDialog(SCMainActivity.getInstance());
-//        pDialog.setMessage("Please wait...");
-//        pDialog.setCancelable(false);
 
         campingListView = (ListView) view.findViewById(R.id.list);
 
@@ -41,21 +34,24 @@ public class SCCampingListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                Intent detailView = new Intent(SCMainActivity.getInstance(), SCDetail.class);
+                Intent detailIntent = new Intent(SCMainActivity.getInstance(), SCDetail.class);
                 //How you send objects through?!
-                final SCJSON.Spots.Data data = campingListAdapter.getItem(position);
-                detailView.putExtra(Constants.detailExtraString, data.getName());
-                startActivity(detailView);
+                System.out.println(campingListView.getItemAtPosition(position));
+                SCJSON.Spots.Data data = (SCJSON.Spots.Data)campingListView.getItemAtPosition(position);
+
+                Bundle mBundle = new Bundle();
+                mBundle.putSerializable(Constants.SER_KEY, data);
+                detailIntent.putExtras(mBundle);
+                startActivity(detailIntent);
             }
         });
-        getData();
 
         return view;
 
     }
 
-    private void getData() {
-//        showDialog();
+    protected void getData(String url) {
+//        SCMainActivity.getInstance().showDialog();
         ScServiceHandler.getInstance().getCampsiteList(url, new SCServerCallBack() {
                     @Override
                     public void onSuccess(SCJSON campsites) {
@@ -65,30 +61,17 @@ public class SCCampingListFragment extends Fragment {
                                     new ArrayList<SCJSON.Spots.Data>(campsites.spots.getData()));
                             campingListView.setAdapter(campingListAdapter);
                         }
-//                        dismissDialog();
+//                        SCMainActivity.getInstance().dismissDialog();
                     }
 
                     @Override
                     public void onError(VolleyError error) {
-//                        dismissDialog();
+//                        SCMainActivity.getInstance().dismissDialog();
                     }
 
                 }
         );
 
-    }
-
-    private void dismissDialog() {
-        if (pDialog != null && pDialog.isShowing()) {
-            pDialog.dismiss();
-        }
-    }
-
-    private void showDialog() {
-        pDialog = new ProgressDialog(SCMainActivity.getInstance());
-        pDialog.setMessage("Please wait...");
-        pDialog.setCancelable(false);
-        pDialog.show();
     }
 }
 

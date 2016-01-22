@@ -1,12 +1,14 @@
 package com.example.funkymonkey1981.spottocampandroid;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,11 +16,11 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-public class SCMainActivity extends Activity {
-
+public class SCMainActivity extends AppCompatActivity implements SCSearchListener {
 
     private static SCMainActivity mInstance;
     private static Context mAppContext;
+    private ProgressDialog pDialog;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -30,6 +32,12 @@ public class SCMainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        pDialog = new ProgressDialog(SCMainActivity.getInstance());
+//        pDialog.setMessage("Please wait...");
+//        pDialog.setCancelable(false);
 
         mInstance = this;
         this.setAppContext(getApplicationContext());
@@ -112,5 +120,26 @@ public class SCMainActivity extends Activity {
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
+
+    //called by SCSearchFragment whenever the use presses the button to search
+    @Override
+    public void searchActivate(String urlString) {
+        SCCampingListFragment campingListFragment = (SCCampingListFragment)getFragmentManager().findFragmentById(R.id.camping_list_fragment);
+        campingListFragment.getData(urlString);
+    }
+
+    protected void dismissDialog() {
+        if (pDialog != null && pDialog.isShowing()) {
+            pDialog.dismiss();
+        }
+    }
+
+    protected void showDialog() {
+        pDialog = new ProgressDialog(SCMainActivity.getInstance());
+        pDialog.setMessage("Please wait...");
+        pDialog.setCancelable(false);
+        pDialog.show();
+    }
+
 }
 

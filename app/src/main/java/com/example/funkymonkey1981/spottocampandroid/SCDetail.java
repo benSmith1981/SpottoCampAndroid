@@ -3,11 +3,13 @@ package com.example.funkymonkey1981.spottocampandroid;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -28,13 +30,19 @@ public class SCDetail extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_camping_view);
 
-        Bundle campingDetail = getIntent().getExtras();
-        if(campingDetail == null){
+        final SCJSON.Spots.Data campsites = (SCJSON.Spots.Data)getIntent().getSerializableExtra(Constants.SER_KEY);
+        if(campsites == null){
             return;
         }
-        String name = campingDetail.getString(Constants.detailExtraString);
         final TextView title = (TextView)findViewById(R.id.detailTitle);
-        title.setText(name);
+        title.setText(campsites.getName());
+
+        final TextView info = (TextView)findViewById(R.id.info);
+        info.setText(campsites.getAddress());
+
+//        ImageView imageView = (ImageView)findViewById(R.id.img);
+//        Picasso.with(this).load(campsites.getThumbnail()).into(imageView);
+
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.

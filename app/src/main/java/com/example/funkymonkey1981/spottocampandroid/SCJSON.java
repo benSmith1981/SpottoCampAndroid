@@ -3,11 +3,12 @@ package com.example.funkymonkey1981.spottocampandroid;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class SCJSON {
+public final class SCJSON implements Serializable{
     public final String query;
     public final long resultsPerPage;
     public final Spots spots;
@@ -24,7 +25,7 @@ public final class SCJSON {
         this.currentDistance = currentDistance;
     }
 
-    public static final class Spots {
+    public static final class Spots implements Serializable{
         public final long totalRecords;
         private final List<Data> data;
 
@@ -38,7 +39,7 @@ public final class SCJSON {
             return data;
         }
 
-        public static final class Data {
+        public static final class Data implements Serializable{
             public String getIdentifier() {
                 return identifier;
             }
@@ -162,7 +163,7 @@ public final class SCJSON {
                 this.ratings = ratings;
             }
 
-            public static final class Prices {
+            public static final class Prices implements Serializable{
                 public final boolean hasprice;
                 public final String price;
 
@@ -173,7 +174,7 @@ public final class SCJSON {
                 }
             }
 
-            public static final class Ratings {
+            public static final class Ratings implements Serializable{
                 public final Ratings_total ratings_total;
                 public final Ratings_stars ratings_stars;
                 public final Ratings_lowerbound ratings_lowerbound;
