@@ -3,6 +3,8 @@ package com.example.funkymonkey1981.spottocampandroid;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +20,7 @@ import org.w3c.dom.Text;
  */
 public class SCDetail extends Activity {
 
-
+    private LayoutInflater inflater;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -40,8 +42,8 @@ public class SCDetail extends Activity {
         final TextView info = (TextView)findViewById(R.id.info);
         info.setText(campsites.getAddress());
 
-//        ImageView imageView = (ImageView)findViewById(R.id.img);
-//        Picasso.with(this).load(campsites.getThumbnail()).into(imageView);
+        ImageView imageView = (ImageView)findViewById(R.id.image);
+        Picasso.with(this).load(campsites.getThumbnail()).into(imageView);
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
