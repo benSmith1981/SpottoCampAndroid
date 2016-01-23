@@ -4,16 +4,14 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.funkymonkey1981.spottocampandroid.data.Data;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by funkymonkey1981 on 20/01/16.
@@ -32,7 +30,7 @@ public class SCDetail extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_camping_view);
 
-        final SCJSON.Spots.Data campsites = (SCJSON.Spots.Data)getIntent().getSerializableExtra(Constants.SER_KEY);
+        final Data campsites = (Data)getIntent().getSerializableExtra(Constants.SER_KEY);
         if(campsites == null){
             return;
         }

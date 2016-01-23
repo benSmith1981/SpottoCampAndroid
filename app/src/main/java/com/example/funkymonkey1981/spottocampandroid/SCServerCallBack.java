@@ -1,6 +1,7 @@
 package com.example.funkymonkey1981.spottocampandroid;
 
 import com.android.volley.VolleyError;
+import com.example.funkymonkey1981.spottocampandroid.data.Query;
 
 /**
  * Created by funkymonkey1981 on 20/01/16.
@@ -8,7 +9,7 @@ import com.android.volley.VolleyError;
 
 public interface SCServerCallBack {
 
-    void onSuccess(SCJSON campsites);
+    void onSuccess(Query campsites);
 
     void onError(VolleyError error);
 }

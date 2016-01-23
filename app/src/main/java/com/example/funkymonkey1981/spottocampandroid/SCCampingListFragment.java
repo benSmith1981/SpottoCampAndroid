@@ -1,6 +1,5 @@
 package com.example.funkymonkey1981.spottocampandroid;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.app.Fragment;
 //import android.support.v4.app.Fragment;
@@ -12,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.VolleyError;
+import com.example.funkymonkey1981.spottocampandroid.data.Data;
+import com.example.funkymonkey1981.spottocampandroid.data.Query;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  * Created by funkymonkey1981 on 21/01/16.
  */
 public class SCCampingListFragment extends Fragment {
-    private SCJSON campsites;
+    private Query campsites;
     private ListView campingListView;
     private SCListView campingListAdapter;
     private static String TAG = SCMainActivity.class.getSimpleName();
@@ -37,7 +38,7 @@ public class SCCampingListFragment extends Fragment {
                 Intent detailIntent = new Intent(SCMainActivity.getInstance(), SCDetail.class);
                 //How you send objects through?!
                 System.out.println(campingListView.getItemAtPosition(position));
-                SCJSON.Spots.Data data = (SCJSON.Spots.Data)campingListView.getItemAtPosition(position);
+                Data data = (Data)campingListView.getItemAtPosition(position);
 
                 Bundle mBundle = new Bundle();
                 mBundle.putSerializable(Constants.SER_KEY, data);
@@ -54,11 +55,11 @@ public class SCCampingListFragment extends Fragment {
 //        SCMainActivity.getInstance().showDialog();
         ScServiceHandler.getInstance().getCampsiteList(url, new SCServerCallBack() {
                     @Override
-                    public void onSuccess(SCJSON campsites) {
+                    public void onSuccess(Query campsites) {
                         if (campsites != null && campsites.spots != null && campsites.spots.getData() != null) {
                             campingListAdapter = new SCListView(SCMainActivity.getInstance(),
                                     R.layout.camping_list_fragment,
-                                    new ArrayList<SCJSON.Spots.Data>(campsites.spots.getData()));
+                                    new ArrayList<Data>(campsites.spots.getData()));
                             campingListView.setAdapter(campingListAdapter);
                         }
 //                        SCMainActivity.getInstance().dismissDialog();

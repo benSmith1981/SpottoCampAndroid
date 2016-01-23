@@ -7,6 +7,7 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.example.funkymonkey1981.spottocampandroid.data.Query;
 
 
 /**
@@ -17,7 +18,7 @@ public class SpottoCampJSONRequest<T> extends Request<T> {
     private RequestQueue mRequestQueue;
     protected final Response.Listener<T> listener;
     private static SpottoCampJSONRequest mInstance;
-    protected SCJSON campsites;
+    protected Query campsites;
     // Progress dialog
     private ProgressDialog pDialog;
     protected String url;

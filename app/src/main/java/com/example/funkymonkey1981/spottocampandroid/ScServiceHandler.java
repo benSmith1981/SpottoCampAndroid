@@ -13,6 +13,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.funkymonkey1981.spottocampandroid.data.Query;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONObject;
@@ -77,7 +78,7 @@ public class ScServiceHandler extends Application{
     public void getCampsiteList(String urlJsonObj, final SCServerCallBack callback){
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 urlJsonObj, null, new Response.Listener<JSONObject>() {
-            protected SCJSON campsites;
+            protected Query campsites;
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(TAG, response.toString());
@@ -85,7 +86,7 @@ public class ScServiceHandler extends Application{
                     //create ObjectMapper instance
                     ObjectMapper objectMapper = new ObjectMapper();
                     String responseJSONString = String.valueOf(response);
-                    callback.onSuccess(objectMapper.readValue(responseJSONString,SCJSON.class)); // call call back function here
+                    callback.onSuccess(objectMapper.readValue(responseJSONString,Query.class)); // call call back function here
 
                 } catch (IOException e) {
                     e.printStackTrace();
