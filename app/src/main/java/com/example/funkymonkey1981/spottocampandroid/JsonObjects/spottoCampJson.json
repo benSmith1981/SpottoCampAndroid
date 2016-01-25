@@ -1,0 +1,384 @@
+{
+	"query": "4.8833426 52.389523",
+	"resultsPerPage": 15,
+	"spots": {
+		"totalRecords": 15,
+		"data": [{
+			"identifier": "SPOT9f410ceba4eda1573556ebb86de56e43",
+			"name": "Camping und Ferienpark am Plauer See",
+			"shortname": "camping-und-ferienpark-am-plauer-see-brandenburg-ad-havel",
+			"thumbnail": "http:\/\/cdn.spottocamp.com\/images\/de\/SPOT9f410ceba4eda1573556ebb86de56e43\/thumb.jpg",
+			"address": "Plauer Landstrasse 200",
+			"zipcode": "14774",
+			"city": "Brandenburg a.d. Havel",
+			"country": "de",
+			"lng": "12.437400",
+			"lat": "52.400000",
+			"distance": 318.51552750584,
+			"prices": {
+				"hasprice": true,
+				"price": "\u20ac17,40"
+			},
+			"countryTranslated": "Germany",
+			"hasThumbnail": true,
+			"distanceKM": 318.5,
+			"distanceMiles": 197.8,
+			"ratings": {
+				"ratings_total": null,
+				"ratings_stars": null,
+				"ratings_lowerbound": null
+			}
+		}, {
+			"identifier": "SPOTcc7a2a71abe131367f356635b6cef3ea",
+			"name": "Regenbogen Prerow",
+			"shortname": "regenbogen-prerow-prerow",
+			"thumbnail": "http:\/\/cdn.spottocamp.com\/images\/de\/SPOTcc7a2a71abe131367f356635b6cef3ea\/thumb.jpg",
+			"address": "Bernsteinweg 48",
+			"zipcode": "18375",
+			"city": "Prerow",
+			"country": "de",
+			"lng": "12.558400",
+			"lat": "54.452500",
+			"distance": 339.71751956087,
+			"prices": {
+				"hasprice": true,
+				"price": "\u20ac39,80"
+			},
+			"countryTranslated": "Germany",
+			"hasThumbnail": true,
+			"distanceKM": 339.7,
+			"distanceMiles": 211,
+			"ratings": {
+				"ratings_total": null,
+				"ratings_stars": null,
+				"ratings_lowerbound": null
+			}
+		}, {
+			"identifier": "SPOTe0b4fe5fe8abd6c319c693b517750234",
+			"name": "Thisted Camping",
+			"shortname": "thisted-camping-thisted",
+			"thumbnail": "http:\/\/cdn.spottocamp.com\/images\/dk\/SPOTe0b4fe5fe8abd6c319c693b517750234\/thumb.jpg",
+			"address": "Iversensvej 3",
+			"zipcode": "7700",
+			"city": "Thisted",
+			"country": "dk",
+			"lng": "8.712480",
+			"lat": "56.952700",
+			"distance": 346.76861570063,
+			"prices": {
+				"hasprice": true,
+				"price": "\u20ac32,10"
+			},
+			"countryTranslated": "Denmark",
+			"hasThumbnail": true,
+			"distanceKM": 346.8,
+			"distanceMiles": 215.4,
+			"ratings": {
+				"ratings_total": null,
+				"ratings_stars": null,
+				"ratings_lowerbound": null
+			}
+		}, {
+			"identifier": "SPOT7fd59538716930db2d5ddde26de3306f",
+			"name": "Zeltlagerplatz Berlin-Heiligensee",
+			"shortname": "zeltlagerplatz-berlinheiligensee-berlinheiligensee",
+			"thumbnail": "http:\/\/cdn.spottocamp.com\/images\/de\/SPOT7fd59538716930db2d5ddde26de3306f\/thumb.jpg",
+			"address": "Rallenweg 4",
+			"zipcode": "13505",
+			"city": "Berlin-Heiligensee",
+			"country": "de",
+			"lng": "13.220200",
+			"lat": "52.596400",
+			"distance": 350.2467018781,
+			"prices": {
+				"hasprice": false,
+				"price": "N\/A"
+			},
+			"countryTranslated": "Germany",
+			"hasThumbnail": true,
+			"distanceKM": 350.2,
+			"distanceMiles": 217.5,
+			"ratings": {
+				"ratings_total": null,
+				"ratings_stars": null,
+				"ratings_lowerbound": null
+			}
+		}, {
+			"identifier": "SPOT53607688885677773699b927f27c020e",
+			"name": "Solbakken Camping",
+			"shortname": "solbakken-camping-kirke-hyllinge",
+			"thumbnail": "http:\/\/cdn.spottocamp.com\/images\/dk\/SPOT53607688885677773699b927f27c020e\/thumb.jpg",
+			"address": "Solbakkevej 4",
+			"zipcode": "4070",
+			"city": "Kirke Hyllinge",
+			"country": "dk",
+			"lng": "11.847380",
+			"lat": "55.708680",
+			"distance": 355.13797712304,
+			"prices": {
+				"hasprice": true,
+				"price": "\u20ac29,35"
+			},
+			"countryTranslated": "Denmark",
+			"hasThumbnail": true,
+			"distanceKM": 355.1,
+			"distanceMiles": 220.5,
+			"ratings": {
+				"ratings_total": null,
+				"ratings_stars": null,
+				"ratings_lowerbound": null
+			}
+		}, {
+			"identifier": "SPOTeccb396b68d1ce4fbd7cfc64fbd7f246",
+			"name": "SCUBE Park Columbia",
+			"shortname": "scube-park-columbia-berlin",
+			"thumbnail": "http:\/\/cdn.spottocamp.com\/images\/de\/SPOTeccb396b68d1ce4fbd7cfc64fbd7f246\/thumb.jpg",
+			"address": "Columbiadamm 160",
+			"zipcode": "10965",
+			"city": "Berlin",
+			"country": "de",
+			"lng": "13.416370",
+			"lat": "52.479700",
+			"distance": 359.19665422708,
+			"prices": {
+				"hasprice": false,
+				"price": "N\/A"
+			},
+			"countryTranslated": "Germany",
+			"hasThumbnail": true,
+			"distanceKM": 359.2,
+			"distanceMiles": 223.1,
+			"ratings": {
+				"ratings_total": null,
+				"ratings_stars": null,
+				"ratings_lowerbound": null
+			}
+		}, {
+			"identifier": "SPOT80a6ca887c56604169f722db878678e0",
+			"name": "Naturcampingplatz am Springsee",
+			"shortname": "naturcampingplatz-am-springsee-storkow-ot-limsdorf",
+			"thumbnail": "http:\/\/cdn.spottocamp.com\/images\/de\/SPOT80a6ca887c56604169f722db878678e0\/thumb.jpg",
+			"address": "Am Springsee 1",
+			"zipcode": "15859",
+			"city": "Storkow OT Limsdorf",
+			"country": "de",
+			"lng": "13.994170",
+			"lat": "52.171610",
+			"distance": 386.43391491576,
+			"prices": {
+				"hasprice": true,
+				"price": "\u20ac19,-"
+			},
+			"countryTranslated": "Germany",
+			"hasThumbnail": true,
+			"distanceKM": 386.4,
+			"distanceMiles": 240,
+			"ratings": {
+				"ratings_total": null,
+				"ratings_stars": null,
+				"ratings_lowerbound": null
+			}
+		}, {
+			"identifier": "SPOTac95a21408999ee532970cc0234955b6",
+			"name": "Camping Naturiste Domaine de la Gagere \u00a0",
+			"shortname": "camping-naturiste-domaine-de-la-gagere-luzy",
+			"thumbnail": "http:\/\/cdn.spottocamp.com\/images\/fr\/SPOTac95a21408999ee532970cc0234955b6\/thumb.jpg",
+			"address": "Unnamed Road ",
+			"zipcode": "58170",
+			"city": "Luzy",
+			"country": "fr",
+			"lng": "4.057220",
+			"lat": "46.816940",
+			"distance": 387.04225474193,
+			"prices": {
+				"hasprice": true,
+				"price": "\u20ac35,10"
+			},
+			"countryTranslated": "France",
+			"hasThumbnail": true,
+			"distanceKM": 387,
+			"distanceMiles": 240.3,
+			"ratings": {
+				"ratings_total": null,
+				"ratings_stars": null,
+				"ratings_lowerbound": null
+			}
+		}, {
+			"identifier": "SPOT3438fe1ec41dd8195aa6872ca5cc0876",
+			"name": "Bad- und Campingparadies Nixi",
+			"shortname": "bad-und-campingparadies-nixi-paulsdorf",
+			"thumbnail": "http:\/\/cdn.spottocamp.com\/images\/de\/SPOT3438fe1ec41dd8195aa6872ca5cc0876\/thumb.jpg",
+			"address": "Am Bad 1a",
+			"zipcode": "01744",
+			"city": "Paulsdorf",
+			"country": "de",
+			"lng": "13.651110",
+			"lat": "50.913330",
+			"distance": 395.40206074967,
+			"prices": {
+				"hasprice": true,
+				"price": "\u20ac20,50"
+			},
+			"countryTranslated": "Germany",
+			"hasThumbnail": true,
+			"distanceKM": 395.4,
+			"distanceMiles": 245.5,
+			"ratings": {
+				"ratings_total": null,
+				"ratings_stars": null,
+				"ratings_lowerbound": null
+			}
+		}, {
+			"identifier": "SPOT34d61a026736e2cd64068151ea6a453f",
+			"name": "Familienpark Senftenberger See",
+			"shortname": "familienpark-senftenberger-see-grokoschenstadt-senftenberg",
+			"thumbnail": "http:\/\/cdn.spottocamp.com\/images\/de\/SPOT34d61a026736e2cd64068151ea6a453f\/thumb.jpg",
+			"address": "Stra\u00dfe zur S\u00fcdsee 1",
+			"zipcode": "01968",
+			"city": "Gro",
+			"country": "de",
+			"lng": "14.046420",
+			"lat": "51.492710",
+			"distance": 399.09317259694,
+			"prices": {
+				"hasprice": true,
+				"price": "\u20ac32,50"
+			},
+			"countryTranslated": "Germany",
+			"hasThumbnail": true,
+			"distanceKM": 399.1,
+			"distanceMiles": 247.8,
+			"ratings": {
+				"ratings_total": null,
+				"ratings_stars": null,
+				"ratings_lowerbound": null
+			}
+		}, {
+			"identifier": "SPOTebc9f76f7fee78da7e8b018399aab641",
+			"name": "Camping Kleiner Galgenteich",
+			"shortname": "camping-kleiner-galgenteich-altenberg",
+			"thumbnail": "http:\/\/cdn.spottocamp.com\/images\/de\/SPOTebc9f76f7fee78da7e8b018399aab641\/thumb.jpg",
+			"address": "Galgenteichstr. 3",
+			"zipcode": "01773",
+			"city": "Altenberg",
+			"country": "de",
+			"lng": "13.746390",
+			"lat": "50.766670",
+			"distance": 403.28922857264,
+			"prices": {
+				"hasprice": true,
+				"price": "\u20ac21,-"
+			},
+			"countryTranslated": "Germany",
+			"hasThumbnail": true,
+			"distanceKM": 403.3,
+			"distanceMiles": 250.4,
+			"ratings": {
+				"ratings_total": null,
+				"ratings_stars": null,
+				"ratings_lowerbound": null
+			}
+		}, {
+			"identifier": "SPOT184e3c84c1f6ee8c20c6d94cb1bd18e8",
+			"name": "Waldcamping Pirna-Copitz",
+			"shortname": "waldcamping-pirnacopitz-pirna",
+			"thumbnail": "http:\/\/cdn.spottocamp.com\/images\/de\/SPOT184e3c84c1f6ee8c20c6d94cb1bd18e8\/thumb.jpg",
+			"address": "\u00c4u\u00dfere Pillnitzer Stra\u00dfe 19",
+			"zipcode": "01796",
+			"city": "Pirna",
+			"country": "de",
+			"lng": "13.925030",
+			"lat": "50.981740",
+			"distance": 405.22320293705,
+			"prices": {
+				"hasprice": true,
+				"price": "\u20ac24,-"
+			},
+			"countryTranslated": "Germany",
+			"hasThumbnail": true,
+			"distanceKM": 405.2,
+			"distanceMiles": 251.6,
+			"ratings": {
+				"ratings_total": null,
+				"ratings_stars": null,
+				"ratings_lowerbound": null
+			}
+		}, {
+			"identifier": "SPOT8668e7a49725e4fd0796d35a1f73df93",
+			"name": "Camping Tramp",
+			"shortname": "camping-tramp-koczewo",
+			"thumbnail": "http:\/\/cdn.spottocamp.com\/images\/pl\/SPOT8668e7a49725e4fd0796d35a1f73df93\/thumb.jpg",
+			"address": "Kotczewo",
+			"zipcode": "72-514",
+			"city": "Ko",
+			"country": "pl",
+			"lng": "14.642500",
+			"lat": "53.989720",
+			"distance": 411.64221911358,
+			"prices": {
+				"hasprice": true,
+				"price": "\u20ac18,-"
+			},
+			"countryTranslated": "Poland",
+			"hasThumbnail": true,
+			"distanceKM": 411.6,
+			"distanceMiles": 255.6,
+			"ratings": {
+				"ratings_total": null,
+				"ratings_stars": null,
+				"ratings_lowerbound": null
+			}
+		}, {
+			"identifier": "SPOTf4bd9580035e6f33c4501bc2e38907b2",
+			"name": "Campingplatz Deulowitzer See",
+			"shortname": "campingplatz-deulowitzer-see-schenkendbern",
+			"thumbnail": "http:\/\/cdn.spottocamp.com\/images\/de\/SPOTf4bd9580035e6f33c4501bc2e38907b2\/thumb.jpg",
+			"address": "Am See 4",
+			"zipcode": "03172",
+			"city": "Schenkend\u00f6bern",
+			"country": "de",
+			"lng": "14.643740",
+			"lat": "51.920760",
+			"distance": 417.25808160258,
+			"prices": {
+				"hasprice": true,
+				"price": "\u20ac23,50"
+			},
+			"countryTranslated": "Germany",
+			"hasThumbnail": true,
+			"distanceKM": 417.3,
+			"distanceMiles": 259.1,
+			"ratings": {
+				"ratings_total": null,
+				"ratings_stars": null,
+				"ratings_lowerbound": null
+			}
+		}, {
+			"identifier": "SPOTc4bb36eea5fd9b01576f057966308205",
+			"name": "Camping Halbendorfer See",
+			"shortname": "camping-halbendorfer-see-halbendorf-bei-weisswasser",
+			"thumbnail": "http:\/\/cdn.spottocamp.com\/images\/de\/SPOTc4bb36eea5fd9b01576f057966308205\/thumb.jpg",
+			"address": "Dorfstrasze 45A",
+			"zipcode": "02953",
+			"city": "Halbendorf bei Weisswasser",
+			"country": "de",
+			"lng": "14.568330",
+			"lat": "51.545000",
+			"distance": 420.30131309521,
+			"prices": {
+				"hasprice": true,
+				"price": "\u20ac18,30"
+			},
+			"countryTranslated": "Germany",
+			"hasThumbnail": true,
+			"distanceKM": 420.3,
+			"distanceMiles": 261,
+			"ratings": {
+				"ratings_total": null,
+				"ratings_stars": null,
+				"ratings_lowerbound": null
+			}
+		}]
+	},
+	"currentDistance": -1
+}

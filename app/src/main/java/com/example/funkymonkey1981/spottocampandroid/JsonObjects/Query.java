@@ -1,4 +1,4 @@
-package com.example.funkymonkey1981.spottocampandroid.data;
+package com.example.funkymonkey1981.spottocampandroid.JsonObjects;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

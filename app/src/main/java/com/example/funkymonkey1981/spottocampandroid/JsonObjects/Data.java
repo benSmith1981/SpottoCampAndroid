@@ -1,4 +1,4 @@
-package com.example.funkymonkey1981.spottocampandroid.data;
+package com.example.funkymonkey1981.spottocampandroid.JsonObjects;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -126,6 +126,7 @@ public final class Data implements Serializable {
         this.lat = lat;
         this.distance = distance;
         this.prices = prices;
+//        this.prices.setForeignKey(identifier);
         this.countryTranslated = countryTranslated;
         this.hasThumbnail = hasThumbnail;
         this.distanceKM = distanceKM;

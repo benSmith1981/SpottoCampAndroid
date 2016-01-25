@@ -13,7 +13,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.funkymonkey1981.spottocampandroid.data.Query;
+import com.example.funkymonkey1981.spottocampandroid.JsonObjects.Query;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONObject;

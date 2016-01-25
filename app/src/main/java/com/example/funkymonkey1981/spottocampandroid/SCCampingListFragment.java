@@ -11,8 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.VolleyError;
-import com.example.funkymonkey1981.spottocampandroid.data.Data;
-import com.example.funkymonkey1981.spottocampandroid.data.Query;
+import com.example.funkymonkey1981.spottocampandroid.JsonObjects.Data;
+import com.example.funkymonkey1981.spottocampandroid.JsonObjects.Query;
 
 import java.util.ArrayList;
 

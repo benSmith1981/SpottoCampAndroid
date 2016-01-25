@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
-import com.example.funkymonkey1981.spottocampandroid.data.Data;
-import com.example.funkymonkey1981.spottocampandroid.data.MyDBHandler;
+import com.example.funkymonkey1981.spottocampandroid.JsonObjects.Data;
+import com.example.funkymonkey1981.spottocampandroid.data.DatabaseHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -25,14 +25,14 @@ public class SCListView extends ArrayAdapter<Data> {
     private LayoutInflater inflater;
     private ImageLoader mImageLoader;
     Context context;
-    MyDBHandler dbHandler;
+    DatabaseHelper dbHandler;
 
     public SCListView(Context context, @LayoutRes int layoutId, ArrayList<Data> campsites) {
         super(context, layoutId, campsites);
         inflater = LayoutInflater.from(context);
         mImageLoader = com.example.funkymonkey1981.spottocampandroid.SCImageLoader.getInstance().getImageLoader();
         this.context = context;
-        dbHandler = new MyDBHandler(context,"",null,1);
+        dbHandler = DatabaseHelper.getHelper(context);
 
     }
     public ImageLoader getmImageLoader() {
@@ -54,7 +54,7 @@ public class SCListView extends ArrayAdapter<Data> {
         ImageView imageView = (ImageView)rowView.findViewById(R.id.img);
         Picasso.with(rowView.getContext()).load(data.getThumbnail()).into(imageView);
 
-        dbHandler.addData(data);
+//        dbHandler.addData(data);
 //        System.out.println(dbHandler.dataBaseToString());
 
         return rowView;

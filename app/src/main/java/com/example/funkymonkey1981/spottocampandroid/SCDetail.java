@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.funkymonkey1981.spottocampandroid.data.Data;
+import com.example.funkymonkey1981.spottocampandroid.JsonObjects.Data;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
