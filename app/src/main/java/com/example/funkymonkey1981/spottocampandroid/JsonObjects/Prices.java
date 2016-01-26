@@ -11,15 +11,15 @@ import java.io.Serializable;
 public final class Prices implements Serializable {
     public final boolean hasprice;
     public final String price;
-//    public String foreignKey;
-//
-//    public String getForeignKey() {
-//        return foreignKey;
-//    }
-//
-//    public void setForeignKey(String foreignKey) {
-//        this.foreignKey = foreignKey;
-//    }
+    public String foreignKey;
+
+    public String getForeignKey() {
+        return foreignKey;
+    }
+
+    public void setForeignKey(String foreignKey) {
+        this.foreignKey = foreignKey;
+    }
 
     public String getPrice() {
         return price;

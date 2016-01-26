@@ -29,10 +29,9 @@ public class DataProvider extends DatabaseProvider {
         values.put(SCContract.SCData.COLUMN_NAME_DISTANCE, data.getDistance());
         values.put(SCContract.SCData.COLUMN_NAME_IDENTIFIER, data.getIdentifier());
         values.put(SCContract.SCData.COLUMN_NAME_COUNTRYTRANSLATED, data.getCountryTranslated());
-        values.put(SCContract.SCData.COLUMN_NAME_HASTHUMBNAIL, data.getThumbnail());
+        values.put(SCContract.SCData.COLUMN_NAME_HASTHUMBNAIL, data.isHasThumbnail());
         values.put(SCContract.SCData.COLUMN_NAME_DISTANCEKM, data.getDistanceKM());
         values.put(SCContract.SCData.COLUMN_NAME_DISTANCEMILES, data.getDistanceMiles());
-        values.put(SCContract.SCData.COLUMN_NAME_RATINGS_DATA_ID, data.getIdentifier());
 
         return database.insert(SCContract.SCData.TABLE_NAME, null, values);
     }

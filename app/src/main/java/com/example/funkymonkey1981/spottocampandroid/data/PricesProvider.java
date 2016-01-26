@@ -19,7 +19,7 @@ public class PricesProvider extends  DatabaseProvider {
         ContentValues values = new ContentValues();
         values.put(SCContract.SCPrices.COLUMN_NAME_PRICE, prices.getPrice());
         values.put(SCContract.SCPrices.COLUMN_NAME_HAS_PRICE, prices.isHasprice());
-
+        values.put(SCContract.SCPrices.COLUMN_NAME_DATA_IDENTIFIER, prices.getForeignKey()); //put foreign key in DB
         return database.insert(SCContract.SCPrices.TABLE_NAME, null, values);
     }
 }

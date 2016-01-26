@@ -126,7 +126,7 @@ public final class Data implements Serializable {
         this.lat = lat;
         this.distance = distance;
         this.prices = prices;
-//        this.prices.setForeignKey(identifier);
+        this.prices.setForeignKey(this.getIdentifier()); //set prices foreign key to that of identifier here
         this.countryTranslated = countryTranslated;
         this.hasThumbnail = hasThumbnail;
         this.distanceKM = distanceKM;

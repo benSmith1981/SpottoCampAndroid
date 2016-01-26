@@ -15,7 +15,7 @@ public final class SCContract {
     private static final String FLOAT_TYPE = " FLOAT";
     private static final String INT_TYPE = " INT";
 
-    private static final String COMMA_SEP = ",";
+    private static final String COMMA_SEP = ", ";
     public SCContract(){};
 
     public static abstract class SCData implements BaseColumns {
@@ -35,10 +35,9 @@ public final class SCContract {
         public static final String COLUMN_NAME_HASTHUMBNAIL = "hasThumbnail";
         public static final String COLUMN_NAME_DISTANCEKM = "distanceKM";
         public static final String COLUMN_NAME_DISTANCEMILES = "distanceMiles";
-        public static final String COLUMN_NAME_RATINGS_DATA_ID = "ratings_ID";
 
         public static final String SQL_CREATE_DATA =
-                "CREATE TABLE " + SCContract.SCData.TABLE_NAME + " (" +
+                "CREATE TABLE " + TABLE_NAME + " (" +
                         COLUMN_NAME_IDENTIFIER + TEXT_TYPE + COMMA_SEP +
                         COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                         COLUMN_NAME_SHORTNAME + TEXT_TYPE + COMMA_SEP +
@@ -53,8 +52,8 @@ public final class SCContract {
                         COLUMN_NAME_COUNTRYTRANSLATED + TEXT_TYPE + COMMA_SEP +
                         COLUMN_NAME_DISTANCEKM + TEXT_TYPE + COMMA_SEP +
                         COLUMN_NAME_DISTANCEMILES + TEXT_TYPE + COMMA_SEP +
-                        COLUMN_NAME_HASTHUMBNAIL + TEXT_TYPE + COMMA_SEP +
-                        " )";
+                        COLUMN_NAME_HASTHUMBNAIL + TEXT_TYPE +
+                        " );";
 
     }
 
@@ -64,11 +63,12 @@ public final class SCContract {
         public static final String COLUMN_NAME_HAS_PRICE = "hasprice";
         public static final String COLUMN_NAME_PRICE = "price";
         public static final String SQL_CREATE_PRICES =
-                "CREATE TABLE " + SCContract.SCData.TABLE_NAME + " (" +
+                "CREATE TABLE " + TABLE_NAME + " (" +
                         COLUMN_NAME_HAS_PRICE + TEXT_TYPE + COMMA_SEP +
                         COLUMN_NAME_PRICE + TEXT_TYPE + COMMA_SEP +
-                        "FOREIGN KEY(" + COLUMN_NAME_DATA_IDENTIFIER + ") REFERENCES " + SCData.TABLE_NAME + "("+ SCData.COLUMN_NAME_IDENTIFIER +") " + ")" + COMMA_SEP +
-                        " )";
+                        COLUMN_NAME_DATA_IDENTIFIER + TEXT_TYPE + COMMA_SEP +
+                        "FOREIGN KEY (" + COLUMN_NAME_DATA_IDENTIFIER + ") REFERENCES " + SCData.TABLE_NAME + " ("+SCData.COLUMN_NAME_IDENTIFIER +") " +
+                        " );";
     }
 
     public static abstract class SCRatings implements BaseColumns {
