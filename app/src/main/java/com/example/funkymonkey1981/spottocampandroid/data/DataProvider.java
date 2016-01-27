@@ -3,8 +3,10 @@ package com.example.funkymonkey1981.spottocampandroid.data;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.example.funkymonkey1981.spottocampandroid.JsonObjects.Data;
+import com.example.funkymonkey1981.spottocampandroid.JsonObjects.Prices;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +39,7 @@ public class DataProvider extends Provider {
         values.put(SCContract.SCData.COLUMN_NAME_DISTANCEKM, data.getDistanceKM());
         values.put(SCContract.SCData.COLUMN_NAME_DISTANCEMILES, data.getDistanceMiles());
 
-        return database.insert(SCContract.SCData.TABLE_NAME, null, values);
+        return database.insertWithOnConflict(SCContract.SCData.TABLE_NAME, null, values, database.CONFLICT_REPLACE);
     }
 
 
@@ -75,45 +77,97 @@ public class DataProvider extends Provider {
     public List<Data> getAllData() {
         List<Data> campsites = new ArrayList<Data>();
 
-        String[] projection = {
-                SCContract.SCData.COLUMN_NAME_NAME,
-                SCContract.SCData.COLUMN_NAME_SHORTNAME,
-                SCContract.SCData.COLUMN_NAME_THUMBNAIL,
-                SCContract.SCData.COLUMN_NAME_ADDRESS,
-                SCContract.SCData.COLUMN_NAME_ZIPCODE,
-                SCContract.SCData.COLUMN_NAME_CITY,
-                SCContract.SCData.COLUMN_NAME_COUNTRY,
-                SCContract.SCData.COLUMN_NAME_LONGITUDE,
-                SCContract.SCData.COLUMN_NAME_LATITUDE,
-                SCContract.SCData.COLUMN_NAME_PRICEEURCOURSE,
-                SCContract.SCData.COLUMN_NAME_DISTANCE,
-                SCContract.SCData.COLUMN_NAME_IDENTIFIER,
-                SCContract.SCData.COLUMN_NAME_COUNTRYTRANSLATED,
-                SCContract.SCData.COLUMN_NAME_HASTHUMBNAIL,
-                SCContract.SCData.COLUMN_NAME_DISTANCEKM,
-                SCContract.SCData.COLUMN_NAME_DISTANCEMILES
-        };
-        Cursor cursor = database.query(SCContract.SCData.TABLE_NAME,
-                projection, null, null, null, null,null);
+        String selectALLQuery = SCContract.SCPrices.SQL_GET_DATA_AND_PRICES;
+        Cursor cursorAllData = database.rawQuery(selectALLQuery, null);
 
-        cursor.moveToFirst();
-//        while (cursor.moveToNext()) {
-//            Data campsite = new Data(cursor.getString(0),
-//                    cursor.getString(1),
-//                    cursor.getString(2),
-//                    cursor.getString(3),
-//                    cursor.getString(4),
-//                    cursor.getString(5),
-//                    cursor.getString(6),
-//                    cursor.getString(7),
-//                    cursor.getString(8),
-//                    cursor.getString(9),
-//                    cursor.getDouble(10),
-//                    cursor.getString(12),
-//                    cursor.getString(13),
-//                    cursor.getString(14));
-//            campsites.add(campsite);
-//        }
+        if (cursorAllData.moveToFirst()) {
+            do {
+                //override old data object to create a new one
+                Data campData = new Data();
+                Prices prices = new Prices();
+
+                // get  the  data into array,or class variable
+                for(int i=0; i<cursorAllData.getColumnCount();i++)
+                {
+                    switch (cursorAllData.getColumnName(i))
+                    {
+                        case SCContract.SCPrices.COLUMN_NAME_PRICE:
+                            prices.setPrice(cursorAllData.getString(i));
+                            break;
+
+                        case SCContract.SCPrices.COLUMN_NAME_DATA_IDENTIFIER:
+                            prices.setForeignKey(cursorAllData.getString(i));
+                            break;
+                        case SCContract.SCPrices.COLUMN_NAME_HAS_PRICE:
+                            if(cursorAllData.getString(i).equals("true"))
+                                prices.setHasprice(true);
+                            else
+                                prices.setHasprice(false);
+                            break;
+                        case SCContract.SCData.COLUMN_NAME_NAME:
+                            campData.setName(cursorAllData.getString(i));
+                            break;
+                        case SCContract.SCData.COLUMN_NAME_IDENTIFIER:
+                            campData.setIdentifier(cursorAllData.getString(i));
+                            break;
+                        case SCContract.SCData.COLUMN_NAME_PRICEEURCOURSE:
+                            campData.setPriceEurCourse(cursorAllData.getDouble(i));
+                            break;
+                        case SCContract.SCData.COLUMN_NAME_ZIPCODE:
+                            campData.setZipcode(cursorAllData.getString(i));
+                            break;
+                        case SCContract.SCData.COLUMN_NAME_ADDRESS:
+                            campData.setAddress(cursorAllData.getString(i));
+                            break;
+                        case SCContract.SCData.COLUMN_NAME_CITY:
+                            campData.setCity(cursorAllData.getString(i));
+                            break;
+                        case SCContract.SCData.COLUMN_NAME_COUNTRY:
+                            campData.setCountry(cursorAllData.getString(i));
+                            break;
+                        case SCContract.SCData.COLUMN_NAME_COUNTRYTRANSLATED:
+                            campData.setCountryTranslated(cursorAllData.getString(i));
+                            break;
+                        case SCContract.SCData.COLUMN_NAME_DISTANCE:
+                            campData.setDistance(cursorAllData.getDouble(i));
+                            break;
+                        case SCContract.SCData.COLUMN_NAME_DISTANCEKM:
+                            campData.setDistanceKM(cursorAllData.getDouble(i));
+                            break;
+                        case SCContract.SCData.COLUMN_NAME_DISTANCEMILES:
+                            campData.setDistanceMiles(cursorAllData.getLong(i));
+                            break;
+                        case SCContract.SCData.COLUMN_NAME_HASTHUMBNAIL:
+                            if(cursorAllData.getString(i).equals("true"))
+                                campData.setHasThumbnail(true);
+                            else
+                                campData.setHasThumbnail(false);
+                            break;
+                        case SCContract.SCData.COLUMN_NAME_LATITUDE:
+                            campData.setLat(cursorAllData.getString(i));
+                            break;
+                        case SCContract.SCData.COLUMN_NAME_LONGITUDE:
+                            campData.setLng(cursorAllData.getString(i));
+                            break;
+                        case SCContract.SCData.COLUMN_NAME_SHORTNAME:
+                            campData.setShortname(cursorAllData.getString(i));
+                            break;
+                        case SCContract.SCData.COLUMN_NAME_THUMBNAIL:
+                            campData.setThumbnail(cursorAllData.getString(i));
+                            break;
+                        default: throw new IllegalArgumentException("There is no column type in switch statemtn for column name " + cursorAllData.getColumnName(i));
+
+                    }
+                    Log.d(TAG, "getAllData: Data type" + cursorAllData.getType(i) +
+                            " " + cursorAllData.getString(i) + " COLUMN_NAME_NAME Index:" +
+                            cursorAllData.getColumnIndex(SCContract.SCData.COLUMN_NAME_NAME) +
+                            " ColumnName" + cursorAllData.getColumnName(i));
+                }
+                campData.setPrices(prices);//add the prices object associated with campData
+                campsites.add(campData);
+            } while (cursorAllData.moveToNext());
+        }
+
         return campsites;
     }
 

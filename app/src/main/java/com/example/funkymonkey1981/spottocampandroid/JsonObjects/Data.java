@@ -173,6 +173,9 @@ public final class Data implements Serializable {
         this.ratings = ratings;
     }
 
+    public Data(){
+
+    }
     @JsonCreator
     public Data(@JsonProperty("identifier") String identifier,
                 @JsonProperty("name") String name,

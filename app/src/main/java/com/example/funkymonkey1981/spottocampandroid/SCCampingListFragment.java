@@ -124,7 +124,7 @@ public class SCCampingListFragment extends Fragment {
             if (campsiteData != null && getCampsiteData() != null) {
                 for (Data campsite : campsiteData) {
                     result = getDataDBHandler().save(campsite);
-                    if (campsite.getPrices() != null){
+                    if (campsite.getPrices() != null && result != -1){
                         result = getPricesDBHandler().save(campsite.getPrices());
                     }
                 }
@@ -134,26 +134,50 @@ public class SCCampingListFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Long result) {
-            if (getCampsiteData() != null && getCampsiteData().spots != null && getCampsiteData().spots.getData() != null) {
+            if (activityWeakRef.get() != null
+                    && !activityWeakRef.get().isFinishing()) {
+                if (result != -1) {
+                    Toast.makeText(activityWeakRef.get(), "CAMPSITE DATA Saved",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+            GetCampingDataTask getCampingDataTask = new GetCampingDataTask(getActivity());
+            getCampingDataTask.execute((Void) null);
+
+        }
+    }
+
+    public class GetCampingDataTask extends AsyncTask<Void, Void, Long> {
+
+        private final WeakReference<Activity> activityWeakRef;
+        private List<Data> campingData;
+        public GetCampingDataTask(Activity context) {
+            this.activityWeakRef = new WeakReference<Activity>(context);
+        }
+
+        @Override
+        protected Long doInBackground(Void... arg0) {
+            long result = 0;
+            //retrieve all data
+            campingData = dataDBHandler.getAllData();
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(Long result) {
+            if (campingData != null) {
                 campingListAdapter = new SCListView(SCMainActivity.getInstance(),
                         R.layout.camping_list_fragment,
-                        new ArrayList<Data>(getCampsiteData().spots.getData()));
+                        new ArrayList<Data>(campingData));
                 campingListView.setAdapter(campingListAdapter);
             }
 
             if (activityWeakRef.get() != null
                     && !activityWeakRef.get().isFinishing()) {
-                dataDBHandler.getTableAsString("data");
-                dataDBHandler.getTableAsString("prices");
                 if (result != -1) {
-                    Toast.makeText(activityWeakRef.get(), "CAMPSITE DATA Saved",
+                    Toast.makeText(activityWeakRef.get(), "CAMPSITE DATA LOADED",
                             Toast.LENGTH_LONG).show();
-
-
                 }
-
-//                    Toast.makeText(activityWeakRef.get(), pricesDBHandler.getTableAsString("prices"),
-//                            Toast.LENGTH_LONG).show();
             }
         }
     }

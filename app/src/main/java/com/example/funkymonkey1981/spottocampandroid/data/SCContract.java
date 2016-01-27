@@ -19,7 +19,8 @@ public final class SCContract {
     private static final String BOOLEAN_TYPE = " BOOLEAN";
     private static final String COMMA_SEP = ", ";
     private static final String NOT_NULL_UNIQUE = " NOT NULL UNIQUE";
-
+    private static final String PRIMARY_KEY = " PRIMARY KEY";
+    
     public SCContract(){};
 
     public static abstract class SCData implements BaseColumns {
@@ -63,24 +64,49 @@ public final class SCContract {
         public static final String SQL_DELETE_DATA =
                 "DROP TABLE IF EXISTS " + TABLE_NAME;
         public static final String WHERE_DATA_ID_EQUALS = SCData.COLUMN_NAME_IDENTIFIER + " =?";
+        public static final String SQL_GET_ALL_DATA = "SELECT  * FROM " + SCContract.SCData.TABLE_NAME;
+
 
     }
 
     public static abstract class SCPrices implements BaseColumns {
         public static final String TABLE_NAME = "prices";
-        public static final String COLUMN_NAME_DATA_IDENTIFIER = "identifier";
+        public static final String COLUMN_NAME_DATA_IDENTIFIER = "identifierFK";
         public static final String COLUMN_NAME_HAS_PRICE = "hasprice";
         public static final String COLUMN_NAME_PRICE = "price";
         public static final String SQL_CREATE_PRICES =
                 "CREATE TABLE " + TABLE_NAME + " (" +
-                        COLUMN_NAME_HAS_PRICE + TEXT_TYPE + COMMA_SEP +
+                        COLUMN_NAME_HAS_PRICE + BOOLEAN_TYPE + COMMA_SEP +
                         COLUMN_NAME_PRICE + TEXT_TYPE + COMMA_SEP +
                         COLUMN_NAME_DATA_IDENTIFIER + TEXT_TYPE + COMMA_SEP +
                         "FOREIGN KEY (" + COLUMN_NAME_DATA_IDENTIFIER + ") REFERENCES " + SCData.TABLE_NAME + " ("+SCData.COLUMN_NAME_IDENTIFIER +") " +
                         " );";
         public static final String SQL_DELETE_PRICES =
                 "DROP TABLE IF EXISTS " + TABLE_NAME;
-
+        public static final String SQL_GET_ALLPRICES =
+                "SELECT * " + "FROM " + TABLE_NAME;
+        public static final String SQL_GET_DATA_AND_PRICES =
+                "SELECT " + COLUMN_NAME_PRICE + COMMA_SEP +
+                        COLUMN_NAME_HAS_PRICE + COMMA_SEP +
+                        COLUMN_NAME_DATA_IDENTIFIER + COMMA_SEP +
+                        SCData.COLUMN_NAME_IDENTIFIER + COMMA_SEP +
+                        SCData.COLUMN_NAME_NAME + COMMA_SEP +
+                        SCData.COLUMN_NAME_SHORTNAME + COMMA_SEP +
+                        SCData.COLUMN_NAME_THUMBNAIL + COMMA_SEP +
+                        SCData.COLUMN_NAME_ADDRESS + COMMA_SEP +
+                        SCData.COLUMN_NAME_ZIPCODE + COMMA_SEP +
+                        SCData.COLUMN_NAME_CITY + COMMA_SEP +
+                        SCData.COLUMN_NAME_COUNTRY + COMMA_SEP +
+                        SCData.COLUMN_NAME_LONGITUDE + COMMA_SEP +
+                        SCData.COLUMN_NAME_LATITUDE + COMMA_SEP +
+                        SCData.COLUMN_NAME_PRICEEURCOURSE + COMMA_SEP +
+                        SCData.COLUMN_NAME_DISTANCE + COMMA_SEP +
+                        SCData.COLUMN_NAME_COUNTRYTRANSLATED + COMMA_SEP +
+                        SCData.COLUMN_NAME_DISTANCEKM + COMMA_SEP +
+                        SCData.COLUMN_NAME_DISTANCEMILES + COMMA_SEP +
+                        SCData.COLUMN_NAME_HASTHUMBNAIL +
+                        " FROM " + SCData.TABLE_NAME + COMMA_SEP  + SCPrices.TABLE_NAME +
+                        " WHERE " + SCPrices.TABLE_NAME + "." + SCPrices.COLUMN_NAME_DATA_IDENTIFIER + " = " + SCData.TABLE_NAME +"." + SCData.COLUMN_NAME_IDENTIFIER;
     }
 
     public static abstract class SCRatings implements BaseColumns {
