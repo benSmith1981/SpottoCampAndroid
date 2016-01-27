@@ -10,13 +10,13 @@ import java.sql.SQLException;
 /**
  * Created by funkymonkey1981 on 25/01/16.
  */
-public class DatabaseProvider {
+public class Provider {
 
     protected SQLiteDatabase database;
     private DatabaseHelper dbHelper;
     private Context mContext;
 
-    public DatabaseProvider(Context context) {
+    public Provider(Context context) {
         this.mContext = context;
         dbHelper = DatabaseHelper.getHelper(mContext);
         try {

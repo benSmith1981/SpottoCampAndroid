@@ -14,11 +14,8 @@ import com.example.funkymonkey1981.spottocampandroid.JsonObjects.Data;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "SpottoCampData.db";
-
-    private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + SCContract.SCData.TABLE_NAME;
 
     private static DatabaseHelper instance;
 
@@ -49,9 +46,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL(SCContract.SCData.SQL_DELETE_DATA);
+        db.execSQL(SCContract.SCPrices.SQL_DELETE_PRICES);
+        onCreate(db);
     }
 
-
-
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        super.onDowngrade(db, oldVersion, newVersion);
+    }
 }

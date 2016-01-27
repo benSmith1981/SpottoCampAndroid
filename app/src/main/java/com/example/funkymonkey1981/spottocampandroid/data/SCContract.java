@@ -14,8 +14,12 @@ public final class SCContract {
     private static final String TEXT_TYPE = " TEXT";
     private static final String FLOAT_TYPE = " FLOAT";
     private static final String INT_TYPE = " INT";
-
+    private static final String DOUBLE_TYPE = " DOUBLE";
+    private static final String LONG_TYPE = " LONG";
+    private static final String BOOLEAN_TYPE = " BOOLEAN";
     private static final String COMMA_SEP = ", ";
+    private static final String NOT_NULL_UNIQUE = " NOT NULL UNIQUE";
+
     public SCContract(){};
 
     public static abstract class SCData implements BaseColumns {
@@ -30,6 +34,7 @@ public final class SCContract {
         public static final String COLUMN_NAME_COUNTRY = "country";
         public static final String COLUMN_NAME_LONGITUDE = "lng";
         public static final String COLUMN_NAME_LATITUDE = "lat";
+        public static final String COLUMN_NAME_PRICEEURCOURSE = "priceEurCourse";
         public static final String COLUMN_NAME_DISTANCE = "distance";
         public static final String COLUMN_NAME_COUNTRYTRANSLATED = "countryTranslated";
         public static final String COLUMN_NAME_HASTHUMBNAIL = "hasThumbnail";
@@ -38,7 +43,7 @@ public final class SCContract {
 
         public static final String SQL_CREATE_DATA =
                 "CREATE TABLE " + TABLE_NAME + " (" +
-                        COLUMN_NAME_IDENTIFIER + TEXT_TYPE + COMMA_SEP +
+                        COLUMN_NAME_IDENTIFIER + INT_TYPE + NOT_NULL_UNIQUE + COMMA_SEP +
                         COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                         COLUMN_NAME_SHORTNAME + TEXT_TYPE + COMMA_SEP +
                         COLUMN_NAME_THUMBNAIL + TEXT_TYPE + COMMA_SEP +
@@ -48,12 +53,16 @@ public final class SCContract {
                         COLUMN_NAME_COUNTRY + TEXT_TYPE + COMMA_SEP +
                         COLUMN_NAME_LONGITUDE + TEXT_TYPE + COMMA_SEP +
                         COLUMN_NAME_LATITUDE + TEXT_TYPE + COMMA_SEP +
-                        COLUMN_NAME_DISTANCE + FLOAT_TYPE + COMMA_SEP +
+                        COLUMN_NAME_PRICEEURCOURSE + DOUBLE_TYPE + COMMA_SEP +
+                        COLUMN_NAME_DISTANCE + DOUBLE_TYPE + COMMA_SEP +
                         COLUMN_NAME_COUNTRYTRANSLATED + TEXT_TYPE + COMMA_SEP +
-                        COLUMN_NAME_DISTANCEKM + TEXT_TYPE + COMMA_SEP +
-                        COLUMN_NAME_DISTANCEMILES + TEXT_TYPE + COMMA_SEP +
-                        COLUMN_NAME_HASTHUMBNAIL + TEXT_TYPE +
+                        COLUMN_NAME_DISTANCEKM + DOUBLE_TYPE + COMMA_SEP +
+                        COLUMN_NAME_DISTANCEMILES + LONG_TYPE + COMMA_SEP +
+                        COLUMN_NAME_HASTHUMBNAIL + BOOLEAN_TYPE +
                         " );";
+        public static final String SQL_DELETE_DATA =
+                "DROP TABLE IF EXISTS " + TABLE_NAME;
+        public static final String WHERE_DATA_ID_EQUALS = SCData.COLUMN_NAME_IDENTIFIER + " =?";
 
     }
 
@@ -69,6 +78,9 @@ public final class SCContract {
                         COLUMN_NAME_DATA_IDENTIFIER + TEXT_TYPE + COMMA_SEP +
                         "FOREIGN KEY (" + COLUMN_NAME_DATA_IDENTIFIER + ") REFERENCES " + SCData.TABLE_NAME + " ("+SCData.COLUMN_NAME_IDENTIFIER +") " +
                         " );";
+        public static final String SQL_DELETE_PRICES =
+                "DROP TABLE IF EXISTS " + TABLE_NAME;
+
     }
 
     public static abstract class SCRatings implements BaseColumns {

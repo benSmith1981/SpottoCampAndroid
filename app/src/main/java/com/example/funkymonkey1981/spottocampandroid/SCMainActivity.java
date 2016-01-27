@@ -2,6 +2,7 @@ package com.example.funkymonkey1981.spottocampandroid;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Context;
@@ -12,9 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.funkymonkey1981.spottocampandroid.data.DataProvider;
+import com.example.funkymonkey1981.spottocampandroid.data.PricesProvider;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.lang.ref.WeakReference;
 
 public class SCMainActivity extends AppCompatActivity implements SCSearchListener {
 
@@ -33,8 +38,8 @@ public class SCMainActivity extends AppCompatActivity implements SCSearchListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 //        pDialog = new ProgressDialog(SCMainActivity.getInstance());
 //        pDialog.setMessage("Please wait...");
 //        pDialog.setCancelable(false);

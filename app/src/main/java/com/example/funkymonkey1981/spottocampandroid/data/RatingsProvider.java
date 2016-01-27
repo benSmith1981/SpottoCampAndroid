@@ -3,13 +3,12 @@ package com.example.funkymonkey1981.spottocampandroid.data;
 import android.content.ContentValues;
 import android.content.Context;
 
-import com.example.funkymonkey1981.spottocampandroid.JsonObjects.Prices;
 import com.example.funkymonkey1981.spottocampandroid.JsonObjects.Ratings;
 
 /**
  * Created by funkymonkey1981 on 25/01/16.
  */
-public class RatingsProvider extends DatabaseProvider{
+public class RatingsProvider extends Provider {
 
     public RatingsProvider(Context context) {
         super(context);
