@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,7 +40,20 @@ public class SCDetail extends Activity {
         title.setText(campsites.getName());
 
         final TextView info = (TextView)findViewById(R.id.info);
-        info.setText(campsites.getAddress());
+        info.setText("Country:"+campsites.getCountry()+ " Price:"+campsites.prices.getPrice());
+
+        info.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+            public void hideKeyboard(View view) {
+                InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        });
 
         ImageView imageView = (ImageView)findViewById(R.id.image);
         Picasso.with(this).load(campsites.getThumbnail()).into(imageView);

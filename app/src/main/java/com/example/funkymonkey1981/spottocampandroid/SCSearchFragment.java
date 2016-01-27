@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 
 /**
@@ -27,7 +28,8 @@ public class SCSearchFragment extends Fragment {
         }else{
             throw new ClassCastException(getActivity().toString());
         }
-
+        searchText = (EditText) getActivity().findViewById(R.id.searchText);
+        searchText.setText(url);
     }
 
     @Override
@@ -47,6 +49,6 @@ public class SCSearchFragment extends Fragment {
     }
 
     public void buttonClicked(View view){
-        searchCommander.searchActivate(url);
+        searchCommander.searchActivate(searchText.getText().toString());
     }
 }

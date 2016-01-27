@@ -20,7 +20,7 @@ public final class SCContract {
     private static final String COMMA_SEP = ", ";
     private static final String NOT_NULL_UNIQUE = " NOT NULL UNIQUE";
     private static final String PRIMARY_KEY = " PRIMARY KEY";
-    
+
     public SCContract(){};
 
     public static abstract class SCData implements BaseColumns {

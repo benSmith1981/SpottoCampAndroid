@@ -39,7 +39,7 @@ public class DataProvider extends Provider {
         values.put(SCContract.SCData.COLUMN_NAME_DISTANCEKM, data.getDistanceKM());
         values.put(SCContract.SCData.COLUMN_NAME_DISTANCEMILES, data.getDistanceMiles());
 
-        return database.insertWithOnConflict(SCContract.SCData.TABLE_NAME, null, values, database.CONFLICT_REPLACE);
+        return database.insertWithOnConflict(SCContract.SCData.TABLE_NAME, null, values, database.CONFLICT_IGNORE);
     }
 
 

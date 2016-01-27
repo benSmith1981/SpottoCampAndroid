@@ -6,7 +6,10 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    tools:context=".SCMainActivity">
+    tools:context=".SCMainActivity"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -27,6 +30,7 @@
         android:layout_height="match_parent"
         android:focusable="true"
         android:focusableInTouchMode="true" >
+
 
         <fragment class="com.example.funkymonkey1981.spottocampandroid.SCSearchFragment"
             android:id = "@+id/search_fragment"
