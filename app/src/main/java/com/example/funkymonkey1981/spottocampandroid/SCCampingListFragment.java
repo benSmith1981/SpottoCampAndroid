@@ -6,6 +6,7 @@ import android.app.Fragment;
 //import android.support.v4.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +28,8 @@ import java.util.List;
  * Created by funkymonkey1981 on 21/01/16.
  */
 public class SCCampingListFragment extends Fragment {
-    private ListView campingListView;
-    private SCListView campingListAdapter;
+    private RecyclerView campingListView;
+    private RecyclerView.Adapter campingListAdapter;
     private static String TAG = SCMainActivity.class.getSimpleName();
     DataProvider dataDBHandler;
     PricesProvider pricesDBHandler;
@@ -36,25 +37,24 @@ public class SCCampingListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.camping_list_fragment, container, false);
+        View view = inflater.inflate(R.layout.recycler_view, container, false);
 
-        campingListView = (ListView) view.findViewById(R.id.list);
+        campingListView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
 
-        campingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                Intent detailIntent = new Intent(SCMainActivity.getInstance(), SCDetail.class);
-                //How you send objects through?!
-                System.out.println(campingListView.getItemAtPosition(position));
-                Data data = (Data)campingListView.getItemAtPosition(position);
-
-                Bundle mBundle = new Bundle();
-                mBundle.putSerializable(Constants.SER_KEY, data);
-                detailIntent.putExtras(mBundle);
-                startActivity(detailIntent);
-            }
-        });
+//        campingListView.addOnItemTouchListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Intent detailIntent = new Intent(SCMainActivity.getInstance(), SCDetail.class);
+//                //How you send objects through?!
+////                System.out.println(campingListView.getCa().get(position));
+//                Data data = (Data) ;
+//
+//                Bundle mBundle = new Bundle();
+//                mBundle.putSerializable(Constants.SER_KEY, data);
+//                detailIntent.putExtras(mBundle);
+//                startActivity(detailIntent);
+//            }
+//        });
 
         setDataDBHandler(new DataProvider(campingListView.getContext()));
         setPricesDBHandler(new PricesProvider(campingListView.getContext()));
@@ -102,6 +102,8 @@ public class SCCampingListFragment extends Fragment {
                     @Override
                     public void onError(VolleyError error) {
 //                        SCMainActivity.getInstance().dismissDialog();
+                        GetCampingDataTask getCampingDataTask = new GetCampingDataTask(getActivity());
+                        getCampingDataTask.execute((Void) null);
                     }
 
                 }
@@ -166,9 +168,7 @@ public class SCCampingListFragment extends Fragment {
         @Override
         protected void onPostExecute(Long result) {
             if (campingData != null) {
-                campingListAdapter = new SCListView(SCMainActivity.getInstance(),
-                        R.layout.camping_list_fragment,
-                        new ArrayList<Data>(campingData));
+                campingListAdapter = new SCRecyclerView(new ArrayList<Data>(campingData));
                 campingListView.setAdapter(campingListAdapter);
             }
 
