@@ -37,6 +37,8 @@ public class SCRecyclerView extends RecyclerView.Adapter<SCRecyclerView.ViewHold
         public ImageView imageView;
         public ViewHolder(View v) {
             super(v);
+            txtTitle = (TextView)v.findViewById(R.id.txt);
+            imageView = (ImageView)v.findViewById(R.id.img);
         }
 
     }
@@ -46,21 +48,23 @@ public class SCRecyclerView extends RecyclerView.Adapter<SCRecyclerView.ViewHold
         this.campsites = campsites;
     }
 
+    View.OnClickListener clickListener;
     // Create new views (invoked by the layout manager)
     @Override
     public SCRecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        final View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
         ViewHolder vh = new ViewHolder(v);
 
-        v.setOnClickListener(new View.OnClickListener() {
+
+        clickListener = new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                ViewHolder holder = (ViewHolder) v.getTag();
+            public void onClick(View view) {
+                ViewHolder holder = (ViewHolder) view.getTag();
                 Intent detailIntent = new Intent(SCMainActivity.getInstance(), SCDetail.class);
-                int position = holder.getPosition();
+                int position = holder.getLayoutPosition();
                 Data data = getCampsites().get(position);
 
                 Bundle mBundle = new Bundle();
@@ -68,7 +72,7 @@ public class SCRecyclerView extends RecyclerView.Adapter<SCRecyclerView.ViewHold
                 detailIntent.putExtras(mBundle);
                 v.getContext().startActivity(detailIntent);
             }
-        });
+        };
         return vh;
     }
 
@@ -82,9 +86,13 @@ public class SCRecyclerView extends RecyclerView.Adapter<SCRecyclerView.ViewHold
         holder.txtTitle.setText(data.getName());
         Picasso.with(holder.itemView.getContext())
                 .load(data.getThumbnail())
-                .resize(500, 500)
+                .resize(200, 200)
                 .centerCrop()
                 .into(holder.imageView);
+
+        holder.txtTitle.setOnClickListener(clickListener);
+        holder.imageView.setOnClickListener(clickListener);
+
         holder.txtTitle.setTag(holder);
         holder.imageView.setTag(holder);
     }
@@ -95,6 +103,4 @@ public class SCRecyclerView extends RecyclerView.Adapter<SCRecyclerView.ViewHold
         return campsites.size();
     }
 
-    private class OnClickListener {
-    }
 }
