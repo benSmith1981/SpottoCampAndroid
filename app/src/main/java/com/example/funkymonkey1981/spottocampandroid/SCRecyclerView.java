@@ -31,16 +31,44 @@ public class SCRecyclerView extends RecyclerView.Adapter<SCRecyclerView.ViewHold
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
         // each data item is just a string in this case
-        public TextView txtTitle;
-        public ImageView imageView;
+        private TextView txtTitle;
+        private ImageView imageView;
+        private Data mcampsite;
+
         public ViewHolder(View v) {
             super(v);
+            v.setOnClickListener(this);
             txtTitle = (TextView)v.findViewById(R.id.txt);
             imageView = (ImageView)v.findViewById(R.id.img);
         }
 
+        @Override
+        public void onClick(View v) {
+            Intent detailIntent = new Intent(SCMainActivity.getInstance(), SCDetail.class);
+            int position = this.getLayoutPosition();
+
+            Bundle mBundle = new Bundle();
+            mBundle.putSerializable(Constants.SER_KEY, mcampsite);
+            detailIntent.putExtras(mBundle);
+            v.getContext().startActivity(detailIntent);
+        }
+
+        public void onBindViewHolder(Data campsite){
+            mcampsite = campsite;
+            // - replace the contents of the view with that element
+            this.txtTitle.setText(mcampsite.getName());
+            Picasso.with(this.itemView.getContext())
+                    .load(mcampsite.getThumbnail())
+                    .resize(200, 200)
+                    .centerCrop()
+                    .into(this.imageView);
+
+            this.txtTitle.setTag(this);
+            this.imageView.setTag(this);
+        }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
@@ -48,7 +76,6 @@ public class SCRecyclerView extends RecyclerView.Adapter<SCRecyclerView.ViewHold
         this.campsites = campsites;
     }
 
-    View.OnClickListener clickListener;
     // Create new views (invoked by the layout manager)
     @Override
     public SCRecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent,
@@ -57,22 +84,6 @@ public class SCRecyclerView extends RecyclerView.Adapter<SCRecyclerView.ViewHold
         final View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
         ViewHolder vh = new ViewHolder(v);
-
-
-        clickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ViewHolder holder = (ViewHolder) view.getTag();
-                Intent detailIntent = new Intent(SCMainActivity.getInstance(), SCDetail.class);
-                int position = holder.getLayoutPosition();
-                Data data = getCampsites().get(position);
-
-                Bundle mBundle = new Bundle();
-                mBundle.putSerializable(Constants.SER_KEY, data);
-                detailIntent.putExtras(mBundle);
-                v.getContext().startActivity(detailIntent);
-            }
-        };
         return vh;
     }
 
@@ -82,19 +93,7 @@ public class SCRecyclerView extends RecyclerView.Adapter<SCRecyclerView.ViewHold
         // - get element from your dataset at this position
         // data item based on the position
         final Data data = this.campsites.get(position);
-        // - replace the contents of the view with that element
-        holder.txtTitle.setText(data.getName());
-        Picasso.with(holder.itemView.getContext())
-                .load(data.getThumbnail())
-                .resize(200, 200)
-                .centerCrop()
-                .into(holder.imageView);
-
-        holder.txtTitle.setOnClickListener(clickListener);
-        holder.imageView.setOnClickListener(clickListener);
-
-        holder.txtTitle.setTag(holder);
-        holder.imageView.setTag(holder);
+        holder.onBindViewHolder(data);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
